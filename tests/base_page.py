@@ -17,11 +17,11 @@ class BasePage:
         self.driver.get(f'https://demoqa.com/{self.url}')
 
     @classmethod
-    def find_element_my(cls, driver, locator, timeout=10):
-        return Wait(cls.driver, timeout).until(EC.visibility_of_element_located(locator))
+    def find_current_element(cls, driver, locator, timeout=10):
+        return Wait(driver, timeout).until(EC.visibility_of_element_located(locator))
 
     @classmethod
-    def find_elements_my(cls, driver, locator, timeout=10):
+    def find_current_elements(cls, driver, locator, timeout=10):
         return Wait(driver, timeout).until(EC.visibility_of_all_elements_located(locator))
 
     # def element_is_visible(self, locator, timeout=10):

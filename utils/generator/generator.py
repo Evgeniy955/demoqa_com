@@ -2,7 +2,7 @@ import random
 
 from faker import Faker
 
-from testlib.data.data import Person, PersonInTextBox
+from testlib.data.data import Person, PersonInTextBox, get_project_path
 
 faker_en = Faker('En')
 
@@ -28,7 +28,8 @@ def generated_person_for_text_box():
 
 
 def generated_file():
-    path = rf'C:\Users\Yevhen\PycharmProjects\youtube_test\Translation{random.randint(10, 100)}.txt'
+    # path = rf'C:\Users\Yevhen\PycharmProjects\youtube_test\Translation{random.randint(10, 100)}.txt'
+    path = get_project_path() + '\Translation{random.randint(10, 100)}.txt'
     file = open(path, 'w')
     file.write(f'Helloworld{random.randint(23, 100)}')
     file.close()

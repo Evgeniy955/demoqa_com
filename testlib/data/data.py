@@ -1,3 +1,4 @@
+import os
 from dataclasses import dataclass
 
 
@@ -17,3 +18,10 @@ class PersonInTextBox:
     email: str = None
     current_address: str = None
     permanent_address: str = None
+
+
+def get_project_path():
+    path = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    )
+    return path
