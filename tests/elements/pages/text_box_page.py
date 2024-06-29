@@ -1,6 +1,7 @@
 from faker.providers import person
 from hamcrest import assert_that, equal_to
 
+from conftest import driver
 from testlib.locators import text_box
 from testlib.locators.text_box import check_send_form
 from tests.base_page import BasePage
@@ -11,17 +12,35 @@ list_of_field = ["full_name", "email", "current_address", "permanent_address"]
 
 class TextBox(BasePage):
 
-    def fill_text_fields_and_submit(self, session):
+    @classmethod
+    def open_browser(cls, driver, url=''):
+        object_browser = cls(driver, url)
+        object_browser.open()
+
+    @classmethod
+    def fill_text_fields_and_submit(cls, driver, session):
         person_for_text_box = generated_person_for_text_box()
         session["full_name"] = person_for_text_box.full_name
-        self.element_is_visible(text_box.FULL_NAME).send_keys(session["full_name"])
+        cls.find_element_my(driver, text_box.FULL_NAME)
+        BasePage.find_element_my(driver, text_box.FULL_NAME)
+        # cls.find_element_my(driver, text_box.FULL_NAME).send_keys(session["full_name"])
         session["email"] = person_for_text_box.email
-        self.element_is_visible(text_box.EMAIL).send_keys(session["email"])
+        cls.find_element_my(driver, text_box.EMAIL).send_keys(session["email"])
         session["current_address"] = person_for_text_box.current_address
-        self.element_is_visible(text_box.CURRENT_ADDRESS).send_keys(session["current_address"])
-        session["permanent_address"] = person_for_text_box.permanent_address
-        self.element_is_visible(text_box.PERMANENT_ADDRESS).send_keys(session["permanent_address"])
-        self.element_is_visible(text_box.SUBMIT).click()
+
+    # def fill_text_fields_and_submit(self, session):
+    #     person_for_text_box = generated_person_for_text_box()
+    #     session["full_name"] = person_for_text_box.full_name
+    #     self.element_is_visible(text_box.FULL_NAME).send_keys(session["full_name"])
+    #     session["email"] = person_for_text_box.email
+    #     self.element_is_visible(text_box.EMAIL).send_keys(session["email"])
+    #     session["current_address"] = person_for_text_box.current_address
+    #     self.element_is_visible(text_box.CURRENT_ADDRESS).send_keys(session["current_address"])
+    #     session["permanent_address"] = person_for_text_box.permanent_address
+    #     self.element_is_visible(text_box.PERMANENT_ADDRESS).send_keys(session["permanent_address"])
+    #     submit_button = self.element_is_visible(text_box.SUBMIT)
+    #     self.execute_script("arguments[0].scrollIntoView();", submit_button)
+    #     self.element_is_visible(text_box.SUBMIT).click()
 
     def check_form(self, session):
         text_dict = {
@@ -39,7 +58,6 @@ class TextBox(BasePage):
             else:
                 assert_that(text, equal_to(text_dict[list_of_field[index - 1]] + session[list_of_field[index - 1]]))
             index += 1
-
 
     def check_placeholders(self):
         placeholders = ['Full Name', 'name@example.com', 'Current Address']
