@@ -14,8 +14,7 @@ SUBMIT: Tuple = css_selector('#submit')
 
 
 def check_send_form(index=None):
-    text = xpath(f"xpath('//div[@id='output']//div[contains(@class='border')]//p[{index}]")
-    return text
+    return xpath(f"//div[@id='output']//div[contains(@class, 'border')]//p[{index}]")
 
 
 HEADER_TEXT_BOX = css_selector('h1')
