@@ -13,11 +13,6 @@ list_of_field = ["full_name", "email", "current_address", "permanent_address"]
 class TextBox(BasePage):
 
     @classmethod
-    def open_browser(cls, driver, url=''):
-        object_browser = cls(driver, url)
-        object_browser.open()
-
-    @classmethod
     def fill_text_fields_and_submit(cls, driver, session):
         person_for_text_box = generated_person_for_text_box()
         session["full_name"] = person_for_text_box.full_name
