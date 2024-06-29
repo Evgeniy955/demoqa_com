@@ -1,4 +1,3 @@
-from faker.providers import person
 from hamcrest import assert_that, equal_to
 
 from conftest import driver
@@ -17,8 +16,6 @@ class TextBox(BasePage):
         person_for_text_box = generated_person_for_text_box()
         session["full_name"] = person_for_text_box.full_name
         cls.find_current_element(driver, text_box.FULL_NAME).send_keys(session["full_name"])
-        # BasePage.find_element_my(driver, text_box.FULL_NAME)
-        # cls.find_element_my(driver, text_box.FULL_NAME).send_keys(session["full_name"])
         session["email"] = person_for_text_box.email
         cls.find_current_element(driver, text_box.EMAIL).send_keys(session["email"])
         session["current_address"] = person_for_text_box.current_address

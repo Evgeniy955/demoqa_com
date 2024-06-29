@@ -24,12 +24,6 @@ class BasePage:
     def find_current_elements(cls, driver, locator, timeout=10):
         return Wait(driver, timeout).until(EC.visibility_of_all_elements_located(locator))
 
-    # def element_is_visible(self, locator, timeout=10):
-    #     return Wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
-    #
-    # def elements_are_visible(self, locator, timeout=10):
-    #     return Wait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))
-    #
     @classmethod
     def remove_footer(cls, driver):
         driver.execute_script("document.getElementsByTagName('footer')[0].remove()")
