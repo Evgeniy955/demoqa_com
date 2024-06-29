@@ -1,6 +1,3 @@
-from selenium.webdriver.common.by import By
-
-from tests.base_page import BasePage
 from tests.elements.pages.text_box_page import TextBox
 
 
