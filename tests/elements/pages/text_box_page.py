@@ -26,7 +26,8 @@ class TextBox(BasePage):
         driver.execute_script("arguments[0].scrollIntoView();", submit_button)
         cls.find_current_element(driver, text_box.SUBMIT).click()
 
-    def check_form(self, driver, session):
+    @classmethod
+    def check_form(cls, driver, session):
         text_dict = {
             "full_name": "Name:",
             "email": "Email:",
@@ -35,7 +36,7 @@ class TextBox(BasePage):
         }
         index = 1
         for _ in range(4):
-            text = self.find_current_element(driver, check_send_form(index)).text
+            text = cls.find_current_element(driver, check_send_form(index)).text
             if text.split(":")[0] in ["Current Address ", "Permananet Address "]:
                 assert_that(text, equal_to(
                     text_dict[list_of_field[index - 1]] + session[list_of_field[index - 1]].replace("\n", " ")))
@@ -43,11 +44,12 @@ class TextBox(BasePage):
                 assert_that(text, equal_to(text_dict[list_of_field[index - 1]] + session[list_of_field[index - 1]]))
             index += 1
 
-    def check_placeholders(self, driver):
+    @classmethod
+    def check_placeholders(cls, driver):
         placeholders = ['Full Name', 'name@example.com', 'Current Address']
-        assert_that(self.find_current_element(driver, text_box.FULL_NAME).get_attribute("placeholder"),
+        assert_that(cls.find_current_element(driver, text_box.FULL_NAME).get_attribute("placeholder"),
                     equal_to(placeholders[0]))
-        assert_that(self.find_current_element(driver, text_box.EMAIL).get_attribute("placeholder"),
+        assert_that(cls.find_current_element(driver, text_box.EMAIL).get_attribute("placeholder"),
                     equal_to(placeholders[1]))
-        assert_that(self.find_current_element(driver, text_box.CURRENT_ADDRESS).get_attribute("placeholder"),
+        assert_that(cls.find_current_element(driver, text_box.CURRENT_ADDRESS).get_attribute("placeholder"),
                     equal_to(placeholders[2]))
