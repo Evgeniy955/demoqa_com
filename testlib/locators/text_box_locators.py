@@ -1,9 +1,4 @@
 from typing import Tuple
-
-from selenium.webdriver.common.by import By
-from random import randint
-
-from conftest import driver
 from testlib.locators.locators_by import css_selector, xpath
 
 FULL_NAME: Tuple = css_selector('#userName')
