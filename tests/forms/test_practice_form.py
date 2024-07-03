@@ -1,6 +1,11 @@
+from pytest import mark
+
 from pages.practice_form_page import FormPage
 
 
+@mark.C0003
+@mark.regression
+@mark.text_box
 def test_form(driver):
     form_page = FormPage(driver, 'automation-practice-form')
     form_page.open()
