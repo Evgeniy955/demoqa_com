@@ -60,3 +60,13 @@ class FormPage(BasePage):
         locator = {"button_names": practice_form_locators.RADIO_BUTTONS_TEXT,
                    "checkbox_names": practice_form_locators.CHECKBOX_TEXT}
         cls.check_block_elements(driver, dict_names, locator)
+
+    @classmethod
+    def fail_test(cls, driver):
+        dict_names = {
+            "button_names": ["Males", "Femalse", "Othser"],
+            "checkbox_names": ["Sporats", "Readinsg", "Msusic"]
+        }
+        locator = {"button_names": practice_form_locators.RADIO_BUTTONS_TEXT,
+                   "checkbox_names": practice_form_locators.CHECKBOX_TEXT}
+        cls.check_block_elements(driver, dict_names, locator)

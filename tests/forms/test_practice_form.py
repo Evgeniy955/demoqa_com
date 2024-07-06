@@ -5,7 +5,7 @@ from pages.practice_form_page import FormPage
 
 @mark.C0003
 @mark.regression
-@mark.text_box
+@mark.practice_form
 def test_form(driver):
     form_page = FormPage(driver, 'automation-practice-form')
     form_page.open()
@@ -19,9 +19,18 @@ def test_form(driver):
 
 @mark.C0004
 @mark.regression
-@mark.text_box
+@mark.practice_form
 def test_elements_of_practice_form(driver):
     form_page = FormPage(driver, 'automation-practice-form')
     form_page.open()
     form_page.check_field_name_of_practice_form(driver)
     form_page.check_button_and_checkbox_names(driver)
+
+
+@mark.C0008
+@mark.xfail
+@mark.practice_form
+def test_wrong_form(driver):
+    form_page = FormPage(driver, 'automation-practice-form')
+    form_page.open()
+    form_page.fail_test(driver)
