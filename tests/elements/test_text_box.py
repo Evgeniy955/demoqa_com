@@ -8,7 +8,7 @@ from tests.elements.pages.text_box_page import TextBox
 @mark.medium_priority
 @mark.text_box
 @title('check text box form elements')
-def test_elements_form(driver, session):
+def test_elements_of_text_box_form(driver, session):
     text_box = TextBox(driver, url='text-box')
     text_box.open()
     text_box.elements_on_text_box_page(driver)

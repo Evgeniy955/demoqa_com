@@ -2,7 +2,7 @@ from hamcrest import assert_that, equal_to
 
 from conftest import driver
 from testlib.locators import text_box_locators
-from testlib.locators.text_box_locators import check_send_form, LABELS_TEXT
+from testlib.locators.text_box_locators import check_send_form
 
 from tests.base_page import BasePage
 from utils.generator.generator import generated_person_for_text_box
@@ -60,7 +60,7 @@ class TextBox(BasePage):
         field_names = ["Full Name", "Email", "Current Address", "Permanent Address"]
         assert cls.find_current_element(driver,
                                         text_box_locators.HEADER_TEXT_BOX).text == "Text Box", "Wrong header text"
-        for num in range(4):
-            label_text = cls.find_current_elements(driver, LABELS_TEXT)[num]
+        for num in range(len(field_names)):
+            label_text = cls.find_current_elements(driver, text_box_locators.LABELS_TEXT)[num]
             label_text.is_displayed()
             assert label_text.text == field_names[num], "Wrong label text"

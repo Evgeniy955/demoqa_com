@@ -1,6 +1,5 @@
 from typing import Tuple
 
-from selenium.webdriver.common.by import By
 from random import randint
 
 from testlib.locators.locators_by import css_selector, xpath
@@ -16,3 +15,10 @@ FILE_INPUT: Tuple = css_selector('#uploadPicture')
 CURRENT_ADDRESS: Tuple = css_selector('#currentAddress')
 SUBMIT: Tuple = css_selector('#submit')
 RESULT_TABLE: Tuple = xpath('//div[@class="table-responsive"]//td[2]')
+
+HEADER_TEXT_BOX: Tuple = xpath("//h1[contains(@class, 'text-center')]")
+SUB_TITLE_TEXT_BOX: Tuple = xpath("//h5[contains(text(), 'Form')]")
+LABELS_TEXT: Tuple = xpath('//*[@id="userForm"]//*[contains(@id,"-label")]')
+RADIO_BUTTONS_TEXT: Tuple = xpath('//label[contains(@for, "gender-radio")]')
+CHECKBOX_TEXT: Tuple = xpath('//label[contains(@for, "hobbies-checkbox")]')
+GANDER_TEXT: Tuple = xpath('//*[@id="genterWrapper"]//*[ text()="Gender"]')

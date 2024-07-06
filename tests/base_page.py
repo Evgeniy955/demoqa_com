@@ -11,8 +11,6 @@ class BasePage:
         self.driver = driver
         self.url = url
 
-    # def open(self):
-    #     self.driver.get(self.test_url)
     def open(self):
         self.driver.get(f'https://demoqa.com/{self.url}')
 
@@ -28,3 +26,12 @@ class BasePage:
     def remove_footer(cls, driver):
         driver.execute_script("document.getElementsByTagName('footer')[0].remove()")
         driver.execute_script("document.getElementById('fixedban').style.display='none'")
+
+    @classmethod
+    def check_block_elements(cls, driver, dict_names, locator):
+        for item_name, item_key in dict_names.items():
+            for num in range(len(item_key)):
+                item_text = cls.find_current_elements(driver, locator[item_name])[num]
+                item_text.is_displayed()
+                print(item_text.text, item_key[num])
+                assert item_text.text == item_key[num], "Wrong label text"

@@ -15,3 +15,13 @@ def test_form(driver):
     print(result)
     assert f'{person.first_name} {person.last_name}' == result[0], 'the form has not been failed'
     assert person.email == result[1], 'the form has not been failed'
+
+
+@mark.C0004
+@mark.regression
+@mark.text_box
+def test_elements_of_practice_form(driver):
+    form_page = FormPage(driver, 'automation-practice-form')
+    form_page.open()
+    form_page.check_field_name_of_practice_form(driver)
+    form_page.check_button_and_checkbox_names(driver)

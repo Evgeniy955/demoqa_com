@@ -3,7 +3,7 @@ from pytest import mark
 from tests.alerts_frame_windows.pages.alerts_page import Alerts
 
 
-@mark.C0004
+@mark.C0005
 @mark.regression
 @mark.text_box
 def test_alerts_page_elements(driver):
@@ -12,7 +12,7 @@ def test_alerts_page_elements(driver):
     alerts_page.check_elements_on_alerts_page(driver)
 
 
-@mark.C0004
+@mark.C0006
 @mark.regression
 @mark.text_box
 def test_click_on_alert_button(driver):

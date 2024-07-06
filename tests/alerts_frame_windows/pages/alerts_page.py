@@ -1,13 +1,9 @@
 from time import sleep
 
-from hamcrest import assert_that, equal_to
-
 from conftest import driver
-from testlib.locators import text_box_locators, alerts_locators, practice_form_locators
-from testlib.locators.alerts_locators import CONFIRM_RESULT, PROMPT_RESULT
-from testlib.locators.text_box_locators import check_send_form, LABELS_TEXT
+from testlib.locators import alerts_locators
 from tests.base_page import BasePage
-from utils.generator.generator import generated_person_for_text_box, generated_person
+from utils.generator.generator import generated_person
 
 list_of_fields = ["full_name", "email", "current_address", "permanent_address"]
 
