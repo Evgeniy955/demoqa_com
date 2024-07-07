@@ -42,8 +42,7 @@ class Driver:
 
     def start(self):
         if BROWSER in ["chrome", "edge", "firefox"]:
-            # driver = browsers[BROWSER](options=self.options)
-            driver: WebDriver = webdriver.Chrome(options=self.options)
+            driver: WebDriver = browsers[BROWSER](options=self.options)
             # driver.maximize_window()
         elif BROWSER == "remote":
             driver = None
