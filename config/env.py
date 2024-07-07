@@ -1,5 +1,4 @@
 import os
-import sys
 
 
 def get(key, default=None):
@@ -12,4 +11,4 @@ def get(key, default=None):
     return var
 
 
-BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox"]
+BROWSER = get("BROWSER", "edge")  # browser name ["chrome" "edge", "firefox"]
