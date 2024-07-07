@@ -24,8 +24,8 @@ class FormPage(BasePage):
         subject.send_keys(Keys.RETURN)
         cls.find_current_element(driver, practice_form_locators.HOBBIES).click()
         cls.find_current_element(driver, practice_form_locators.FILE_INPUT).send_keys(path)
-        os.remove(path)
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
+        os.remove(path)
         cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
         return person
 
