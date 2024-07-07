@@ -29,9 +29,9 @@ class FormPage(BasePage):
         print("HOBBIES")
         cls.find_current_element(driver, practice_form_locators.FILE_INPUT).send_keys(path)
         print("FILE_INPUT")
+        os.remove(path)
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
         print("CURRENT_ADDRESS")
-        os.remove(path)
         cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
         print("SUBMIT")
         return person
