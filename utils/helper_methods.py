@@ -1,10 +1,7 @@
-import pytest
-
-
 def test_number(*markers):
     def decorator(func):
-        for marker in markers:
-            func = pytest.mark.__getattr__(marker)(func)
+        if not hasattr(func, 'markers'):
+            func.markers = set()
+        func.markers.update(markers)
         return func
-
     return decorator
