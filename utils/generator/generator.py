@@ -31,5 +31,5 @@ def generated_file():
     path = get_project_path() + '\\Translation{random.randint(10, 100)}.txt'
     file = open(path, 'w')
     file.write(f'Helloworld{random.randint(23, 100)}')
-    file.close()
+    # file.close()
     return path
