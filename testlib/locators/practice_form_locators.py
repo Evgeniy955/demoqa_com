@@ -1,6 +1,5 @@
-from typing import Tuple
-
 from random import randint
+from typing import Tuple
 
 from testlib.locators.locators_by import css_selector, xpath
 
@@ -13,7 +12,7 @@ SUBJECT: Tuple = css_selector('#subjectsInput')
 HOBBIES: Tuple = css_selector(f"label[for='hobbies-checkbox-{randint(1, 3)}']")
 FILE_INPUT: Tuple = css_selector('#uploadPicture')
 CURRENT_ADDRESS: Tuple = css_selector('#currentAddress')
-SUBMIT: Tuple = css_selector('#submit')
+SUBMIT: Tuple = css_selector('#submit') | xpath('//button[text()="Submit"]')
 RESULT_TABLE: Tuple = xpath('//div[@class="table-responsive"]//td[2]')
 
 HEADER_TEXT_BOX: Tuple = xpath("//h1[contains(@class, 'text-center')]")
