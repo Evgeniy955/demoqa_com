@@ -1,9 +1,10 @@
 from pytest import mark
 
 from pages.practice_form_page import FormPage
+from utils.helper_methods import test_number
 
 
-@mark.C0003
+@test_number("03")
 @mark.regression
 @mark.practice_form
 def test_form(driver):
@@ -17,7 +18,7 @@ def test_form(driver):
     assert person.email == result[1], 'the form has not been failed'
 
 
-@mark.C0004
+@test_number("04")
 @mark.regression
 @mark.practice_form
 def test_elements_of_practice_form(driver):
@@ -27,7 +28,7 @@ def test_elements_of_practice_form(driver):
     form_page.check_button_and_checkbox_names(driver)
 
 
-@mark.C0008
+@test_number("08")
 @mark.xfail
 @mark.practice_form
 def test_wrong_form(driver):

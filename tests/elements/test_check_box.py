@@ -1,8 +1,10 @@
 import pytest
 from pytest import mark
 
+from utils.helper_methods import test_number
 
-@mark.C0007
+
+@test_number("07")
 @pytest.mark.skip
 @mark.check_box
 def test_check_box(driver):
