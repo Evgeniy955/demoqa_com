@@ -36,7 +36,9 @@ class Driver:
         if BROWSER == "chrome":
             self.options.add_argument("--window-size=1920,1080")
             remote_options = get("REMOTE_OPTIONS", "")
-            self.options.add_argument(remote_options)
+            for option in remote_options.split():
+                self.options.add_argument(option)
+            # self.options.add_argument(remote_options)
             # self.options.add_argument("--headless")
 
         elif BROWSER in ["edge", "firefox"]:
