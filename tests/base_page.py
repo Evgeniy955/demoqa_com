@@ -34,3 +34,9 @@ class BasePage:
                 item_text.is_displayed()
                 print(item_text.text, item_key[num])
                 assert item_text.text == item_key[num], "Wrong label text"
+
+    @classmethod
+    def scroll_into_view(cls, driver, locator):
+        elem = cls.find_current_element(driver, locator)
+        if not elem.is_displayed():
+            driver.execute_script("arguments[0].scrollIntoView(true);", locator())
