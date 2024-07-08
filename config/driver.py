@@ -35,7 +35,7 @@ class Driver:
 
         if BROWSER == "chrome":
             self.options.add_argument("--window-size=1920,1080")
-            # self.options.add_argument("--headless")
+            self.options.add_argument("--headless")
 
         elif BROWSER in ["edge", "firefox"]:
             self.options.add_argument("--start-maximized")
