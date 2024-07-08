@@ -10,7 +10,7 @@ from config.env import BROWSER, get
 # CREATE_ALLURE_REPORT = env.get("CREATE_ALLURE_REPORT", True)
 # ALLURE_REPORT_PATH = env.get("ALLURE_REPORT_PATH", os.path.dirname(__file__))
 # SESSION_RESULT_PATH = env.get("SESSION_RESULT_PATH", os.path.dirname(__file__))
-REMOTE_OPTIONS = get("REMOTE_OPTIONS", "")
+remote_options = get("REMOTE_OPTIONS", "")
 
 browsers: Dict[str, Type[WebDriver]] = {
     "chrome": webdriver.Chrome,
@@ -37,7 +37,7 @@ class Driver:
         if BROWSER == "chrome":
             self.options.add_argument("--window-size=1920,1080")
 
-            for option in REMOTE_OPTIONS.split():
+            for option in remote_options.split():
                 self.options.add_argument(option)
 
         elif BROWSER in ["edge", "firefox"]:
