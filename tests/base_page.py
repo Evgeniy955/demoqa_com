@@ -1,10 +1,7 @@
-from idlelib import query
-
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as Wait
 
@@ -45,7 +42,7 @@ class BasePage:
     @classmethod
     def scroll_into_view(cls, driver, locator):
         elem = cls.find_current_element(driver, locator)
-        if not elem.is_displayed():
+        if elem.is_displayed():
             driver.execute_script("arguments[0].scrollIntoView(true);", locator())
 
     @classmethod
@@ -63,6 +60,7 @@ class BasePage:
 
     @classmethod
     def move_cursor_to_element(cls, driver, locator):
-        ActionChains(driver).move_to_element(
-            WebElement(parent=driver, id_=locator.get(query.internal_id))
-        ).perform()
+        iframe = cls.find_current_element(driver, locator)
+        ActionChains(driver) \
+            .scroll_to_element(iframe) \
+            .perform()
