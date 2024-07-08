@@ -45,7 +45,7 @@ class Driver:
             self.options.add_argument("--no-sandbox")
             self.options.add_argument("--disable-dev-shm-usage")
             self.options.add_argument("--headless")
-            self.remote_url = "http://selenium:4444/wd/hub"
+            # self.remote_url = "http://selenium:4444/wd/hub"
 
     def start(self):
         if BROWSER in ["chrome", "edge", "firefox"]:
