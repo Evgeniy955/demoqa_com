@@ -35,7 +35,7 @@ class Driver:
         self.options = browser_options
 
         if BROWSER == "chrome":
-            self.options.add_argument("--window-size=1920,1080")
+            # self.options.add_argument("--window-size=1920,1080")
 
             for option in remote_options.split():
                 self.options.add_argument(option)
@@ -47,7 +47,7 @@ class Driver:
     def start(self):
         if BROWSER in ["chrome", "edge", "firefox"]:
             driver: WebDriver = browsers[BROWSER](options=self.options)
-            # driver.maximize_window()
+            driver.maximize_window()
         else:
             driver = None
         return driver

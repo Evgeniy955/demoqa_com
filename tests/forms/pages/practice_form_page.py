@@ -33,6 +33,7 @@ class FormPage(BasePage):
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
         print("CURRENT_ADDRESS")
         cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
+        cls.find_current_element(driver, practice_form_locators.SUBMIT)
         print("SUBMIT")
         return person
 
