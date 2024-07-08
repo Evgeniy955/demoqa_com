@@ -3,7 +3,7 @@ from typing import Type, Dict
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from config.env import BROWSER
+from config.env import BROWSER, get
 
 # EXPORT_RESULT_IN_TESTRAIL = env.get("EXPORT_RESULT_IN_TESTRAIL", True)
 # RUN_ID = env.get("PLAN_ID", 0)
@@ -35,7 +35,9 @@ class Driver:
 
         if BROWSER == "chrome":
             self.options.add_argument("--window-size=1920,1080")
-            self.options.add_argument("--headless")
+            remote_options = get("REMOTE_OPTIONS", "")
+            self.options.add_argument(remote_options)
+            # self.options.add_argument("--headless")
 
         elif BROWSER in ["edge", "firefox"]:
             self.options.add_argument("--start-maximized")
