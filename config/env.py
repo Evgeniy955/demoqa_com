@@ -11,4 +11,4 @@ def get(key, default=None):
     return var
 
 
-BROWSER = get("BROWSER", "remote")  # browser name ["chrome" "edge", "firefox", "remote"]
+BROWSER = get("BROWSER", "firefox")  # browser name ["chrome" "edge", "firefox", "remote"]
