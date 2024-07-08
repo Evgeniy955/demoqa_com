@@ -38,13 +38,10 @@ class Driver:
             remote_options = get("REMOTE_OPTIONS", "")
             for option in remote_options.split():
                 self.options.add_argument(option)
-            # self.options.add_argument(remote_options)
-            # self.options.add_argument("--headless")
 
         elif BROWSER in ["edge", "firefox"]:
             self.options.add_argument("--start-maximized")
             # self.options.add_argument("--headless")
-
 
     def start(self):
         if BROWSER in ["chrome", "edge", "firefox"]:
