@@ -1,7 +1,19 @@
 name: Automated tests
 
 on:
-  push
+  #  push
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Choose target
+        required: true
+        default:
+        type: choice
+        options:
+          - check_box_test
+          - alerts_page_test
+          - practice_form_test
+          - text_box_test
 
 jobs:
   test:
@@ -22,7 +34,23 @@ jobs:
       - name: install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests
+      - name: check_box_test
+        if: "github.event.inputs.deployment_target == 'check_box_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: pytest
+        run: pytest -m "check_box_test"
+      - name: alerts_page_test
+        if: "github.event.inputs.deployment_target == 'alerts_page_test'"
+        env:
+          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+        run: pytest -m "alerts_page_test"
+      - name: practice_form_test
+        if: "github.event.inputs.deployment_target == 'practice_form_test'"
+        env:
+          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+        run: pytest -m "practice_form_test"
+      - name: text_box_test
+        if: "github.event.inputs.deployment_target == 'text_box_test'"
+        env:
+          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+        run: pytest -m "text_box_test"

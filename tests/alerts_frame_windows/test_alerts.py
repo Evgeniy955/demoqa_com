@@ -5,7 +5,8 @@ from tests.alerts_frame_windows.pages.alerts_page import Alerts
 
 @mark.C0001
 @mark.regression
-@mark.alerts_page
+@mark.medium_priority
+@mark.alerts_page_test
 def test_alerts_page_elements(driver):
     alerts_page = Alerts(driver, 'alerts')
     alerts_page.open()
@@ -14,7 +15,8 @@ def test_alerts_page_elements(driver):
 
 @mark.C0002
 @mark.regression
-@mark.alerts_page
+@mark.critical_priority
+@mark.alerts_page_test
 def test_click_on_alert_button(driver):
     alerts_page = Alerts(driver, 'alerts')
     alerts_page.open()
