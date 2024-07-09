@@ -5,7 +5,7 @@ from tests.elements.pages.text_box_page import TextBox
 
 
 @mark.medium_priority
-@mark.text_box
+@mark.text_box_test
 @title('check text box form elements')
 def test_elements_of_text_box_form(driver, session):
     text_box = TextBox(driver, url='text-box')
@@ -15,7 +15,8 @@ def test_elements_of_text_box_form(driver, session):
 
 
 @mark.regression
-@mark.text_box
+@mark.critical_priority
+@mark.text_box_test
 @title('check fill fields and submit')
 def test_form(driver, session):
     text_box = TextBox(driver, url='text-box')

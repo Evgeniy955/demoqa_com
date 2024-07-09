@@ -4,7 +4,8 @@ from pages.practice_form_page import FormPage
 
 
 @mark.regression
-@mark.practice_form
+@mark.critical_priority
+@mark.practice_form_test
 def test_form(driver):
     form_page = FormPage(driver, 'automation-practice-form')
     form_page.open()
@@ -17,7 +18,8 @@ def test_form(driver):
 
 
 @mark.regression
-@mark.practice_form
+@mark.medium_priority
+@mark.practice_form_test
 def test_elements_of_practice_form(driver):
     form_page = FormPage(driver, 'automation-practice-form')
     form_page.open()
@@ -26,7 +28,8 @@ def test_elements_of_practice_form(driver):
 
 
 @mark.xfail
-@mark.practice_form
+@mark.practice_form_test
+@mark.high_priority
 def test_wrong_form(driver):
     form_page = FormPage(driver, 'automation-practice-form')
     form_page.open()
