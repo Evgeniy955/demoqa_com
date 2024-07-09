@@ -34,15 +34,11 @@ class Driver:
     def __init__(self):
         self.options = browser_options
 
-        if BROWSER == "chrome":
-            self.options.add_argument("--window-size=1920,1080")
+        self.options.add_argument("--start-maximized")
+        # self.options.add_argument("--headless")
 
-            for option in REMOTE_OPTIONS.split():
-                self.options.add_argument(option)
-
-        elif BROWSER in ["edge", "firefox"]:
-            self.options.add_argument("--start-maximized")
-            # self.options.add_argument("--headless")
+        for option in REMOTE_OPTIONS.split():
+            self.options.add_argument(option)
 
     def start(self):
         if BROWSER in ["chrome", "edge", "firefox"]:
