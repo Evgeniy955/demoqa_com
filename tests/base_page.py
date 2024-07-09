@@ -1,7 +1,3 @@
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.actions import interaction
-from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as Wait
 
@@ -45,26 +41,3 @@ class BasePage:
         if elem.is_displayed():
             driver.execute_script("arguments[0].scrollIntoView(true);", elem)
 
-    @classmethod
-    def scroll(cls, driver):
-        w = driver.get_window_size().get("width")
-        h = driver.get_window_size().get("height")
-
-        actions = ActionChains(driver)
-        actions.w3c_actions = ActionBuilder(driver,
-                                            mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-        actions.w3c_actions.pointer_action.move_to_location(w / 2, h / 2)
-        actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.move_to_location(w / 2, h / 2)
-        actions.perform()
-
-    @classmethod
-    def move_cursor_to_element(cls, driver, locator):
-        iframe = cls.find_current_element(driver, locator)
-        ActionChains(driver) \
-            .scroll_to_element(iframe) \
-            .perform()
-
-    @classmethod
-    def move_to_element(cls, driver):
-        driver.execute_script("window.scrollBy(0, 600);")
