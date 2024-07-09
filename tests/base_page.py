@@ -43,7 +43,7 @@ class BasePage:
     def scroll_into_view(cls, driver, locator):
         elem = cls.find_current_element(driver, locator)
         if elem.is_displayed():
-            driver.execute_script("arguments[0].scrollIntoView(true);", locator())
+            driver.execute_script("arguments[0].scrollIntoView(true);", elem)
 
     @classmethod
     def scroll(cls, driver):
@@ -64,3 +64,7 @@ class BasePage:
         ActionChains(driver) \
             .scroll_to_element(iframe) \
             .perform()
+
+    @classmethod
+    def move_to_element(cls, driver):
+        driver.execute_script("window.scrollBy(0, 600);")

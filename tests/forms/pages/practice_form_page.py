@@ -26,8 +26,7 @@ class FormPage(BasePage):
         cls.find_current_element(driver, practice_form_locators.FILE_INPUT).send_keys(path)
         os.remove(path)
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
-        print("CURRENT_ADDRESS")
-        cls.move_cursor_to_element(driver, practice_form_locators.SUBMIT)
+        cls.find_current_element(driver, practice_form_locators.SUBMIT).location_once_scrolled_into_view
         cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
         print("SUBMIT")
         return person
