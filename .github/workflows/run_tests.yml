@@ -7,7 +7,7 @@ on:
       deployment_target:
         description: Choose target
         required: true
-        default:
+        default: practice_form_test
         type: choice
         options:
           - check_box_test
