@@ -57,3 +57,8 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: pytest -m "text_box_test"
+      - name: Run all tests
+        if: "github.event.inputs.deployment_target == 'Run all tests'"
+        env:
+          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+        run: pytest
