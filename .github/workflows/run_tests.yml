@@ -15,6 +15,9 @@ on:
           - practice_form_test
           - text_box_test
 
+  schedule:
+    - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
+
 jobs:
   test:
     runs-on: ubuntu-latest
