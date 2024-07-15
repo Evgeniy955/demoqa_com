@@ -14,6 +14,7 @@ on:
           - alerts_page_test
           - practice_form_test
           - text_box_test
+          - Run all tests
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
