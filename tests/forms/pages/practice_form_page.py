@@ -28,7 +28,6 @@ class FormPage(BasePage):
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
         cls.find_current_element(driver, practice_form_locators.SUBMIT).location_once_scrolled_into_view
         cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
-        print("SUBMIT")
         return person
 
     @classmethod
