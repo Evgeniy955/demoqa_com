@@ -1,4 +1,4 @@
-from allure import step
+import allure
 from allure import title
 from pytest import mark
 
@@ -8,9 +8,9 @@ from tests.alerts_frame_windows.pages.alerts_page import Alerts
 @mark.C0001
 @mark.regression
 @mark.medium_priority
-@mark.alerts_page_test
+@allure.story("check alerts page elements")
+@allure.feature("alerts page test")
 @title('check alerts page elements')
-@step('check elements on alerts page')
 def test_alerts_page_elements(driver):
     alerts_page = Alerts(driver, 'alerts')
     alerts_page.open()
@@ -20,9 +20,9 @@ def test_alerts_page_elements(driver):
 @mark.C0002
 @mark.regression
 @mark.critical_priority
-@mark.alerts_page_test
+@allure.story("check alert buttons")
+@allure.feature("alerts page test")
 @title('check alert buttons')
-@step('test_click_on_alert_buttons')
 def test_click_on_alert_buttons(driver):
     alerts_page = Alerts(driver, 'alerts')
     alerts_page.open()

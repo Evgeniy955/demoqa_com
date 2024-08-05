@@ -1,9 +1,9 @@
+from allure import step
 from hamcrest import assert_that, equal_to
 
 from conftest import driver
 from testlib.locators import text_box_locators
 from testlib.locators.text_box_locators import check_send_form
-
 from tests.base_page import BasePage
 from utils.generator.generator import generated_person_for_text_box
 
@@ -13,6 +13,7 @@ list_of_fields = ["full_name", "email", "current_address", "permanent_address"]
 class TextBox(BasePage):
 
     @classmethod
+    @step('fill text fields and submit')
     def fill_text_fields_and_submit(cls, driver, session):
         person_for_text_box_locators = generated_person_for_text_box()
         session["full_name"] = person_for_text_box_locators.full_name
@@ -28,6 +29,7 @@ class TextBox(BasePage):
         cls.find_current_element(driver, text_box_locators.SUBMIT).click()
 
     @classmethod
+    @step('check form')
     def check_form(cls, driver, session):
         text_dict = {
             "full_name": "Name:",
@@ -46,6 +48,7 @@ class TextBox(BasePage):
             index += 1
 
     @classmethod
+    @step('check placeholders')
     def check_placeholders(cls, driver):
         placeholders = ['Full Name', 'name@example.com', 'Current Address']
         assert_that(cls.find_current_element(driver, text_box_locators.FULL_NAME).get_attribute("placeholder"),
@@ -56,6 +59,7 @@ class TextBox(BasePage):
                     equal_to(placeholders[2]))
 
     @classmethod
+    @step('check elements on text box page')
     def elements_on_text_box_page(cls, driver):
         field_names = ["Full Name", "Email", "Current Address", "Permanent Address"]
         assert cls.find_current_element(driver,
