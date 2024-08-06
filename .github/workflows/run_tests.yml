@@ -2,19 +2,19 @@ name: Automated tests
 
 on:
   #  push
-  #  workflow_dispatch:
-  #    inputs:
-  #      deployment_target:
-  #        description: Choose target
-  #        required: true
-  #        default: practice_form_test
-  #        type: choice
-  #        options:
-  #          - check_box_test
-  #          - alerts_page_test
-  #          - practice_form_test
-  #          - text_box_test
-  #          - Run all tests
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Choose target
+        required: true
+        default: practice_form_test
+        type: choice
+        options:
+          - check_box_test
+          - alerts_page_test
+          - practice_form_test
+          - text_box_test
+          - Run all tests
 
   push:
     branches:
@@ -44,7 +44,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: check_box_test
-        if: "github.event.inputs.deployment_target == 'check_box_test'"
+        if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
+        ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: pytest -m "check_box_test"
