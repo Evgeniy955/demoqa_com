@@ -40,6 +40,14 @@ jobs:
       - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install sgithub-actions-ctrf package
+        run: npm install github-actions-ctrf
+
       - name: install dependencies
         run: |
           pip install -r requirements.txt
