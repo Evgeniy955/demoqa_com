@@ -50,8 +50,8 @@ jobs:
       - name: build
         run: npx tsc
 
-      - name: Install sgithub-actions-ctrf package
-        run: npm install github-actions-ctrf
+      #      - name: Install sgithub-actions-ctrf package
+      #        run: npm install github-actions-ctrf
 
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
