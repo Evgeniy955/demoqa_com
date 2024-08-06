@@ -7,6 +7,7 @@ from pytest import mark
 @title('check box test')
 @allure.story("test check box test")
 @allure.feature("check box test")
+@mark.check_box_test
 # @pytest.mark.skip
 @mark.medium_priority
 def test_check_box_test(driver):
