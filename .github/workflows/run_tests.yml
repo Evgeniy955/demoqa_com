@@ -42,6 +42,7 @@ jobs:
 
       - name: install dependencies
         run: pip install -r requirements.txt
+          npm install
 
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
