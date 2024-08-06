@@ -35,7 +35,7 @@ class Driver:
         self.options = browser_options
 
         self.options.add_argument("--window-size=1920,1080")
-        self.options.add_argument("--headless")
+        # self.options.add_argument("--headless")
 
         for option in REMOTE_OPTIONS.split():
             self.options.add_argument(option)
