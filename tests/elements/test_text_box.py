@@ -21,6 +21,7 @@ def test_elements_of_text_box_form(driver, session):
 @mark.C0005
 @mark.regression
 @mark.critical_priority
+@mark.text_box_test
 @allure.story("check fill fields and submit")
 @allure.feature("text box test")
 @title('check fill fields and submit')
