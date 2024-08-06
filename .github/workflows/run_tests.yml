@@ -53,6 +53,10 @@ jobs:
           pip install -r requirements.txt
           npm install
 
+      - name: Run CTRF annotations
+        run: npx github-actions-ctrf demoqa_com/ctrf-report.json
+        if: always()
+
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
         ''"
@@ -79,6 +83,3 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: pytest
-      - name: Run CTRF annotations
-        run: npx github-actions-ctrf demoqa_com/ctrf-report.json
-        if: always()
