@@ -45,6 +45,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Lint with flake8
+        run: |
+          flake8 ctrf --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
         ''"
