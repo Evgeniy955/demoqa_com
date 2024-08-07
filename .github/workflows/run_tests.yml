@@ -1,7 +1,6 @@
 name: Automated tests
 
 on:
-  #  push
   workflow_dispatch:
     inputs:
       deployment_target:
@@ -16,9 +15,9 @@ on:
           - text_box_test
           - Run all tests
 
-  push:
-    branches:
-    - setup-git-actions
+#  push:
+#    branches:
+#    - setup-git-actions
 
 #  schedule:
 #    - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
