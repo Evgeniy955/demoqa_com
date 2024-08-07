@@ -46,7 +46,8 @@ jobs:
 
       - name: Create report directory
         run: |
-          mkdir -p "report/${{ github.event.inputs.deployment_target }}"
+          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
+          mkdir -p "$REPORT_DIR"  # Создает новую папку внутри существующей структуры
 
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
