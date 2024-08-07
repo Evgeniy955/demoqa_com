@@ -81,5 +81,5 @@ jobs:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: pytest
       - name: Run CTRF annotations
-        run: npx github-actions-ctrf ctrf-report.json
+        run: npx github-actions-ctrf report/ctrf-report.json
         if: always()
