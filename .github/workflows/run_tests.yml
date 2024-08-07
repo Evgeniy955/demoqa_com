@@ -53,25 +53,33 @@ jobs:
           REPORT: "report/ctrf-report.json"
         run: pytest -m "check_box_test" --ctrf $REPORT
       - name: alerts_page_test
-        if: "github.event.inputs.deployment_target == 'alerts_page_test'"
+        if: "github.event.inputs.deployment_target == 'alerts_page_test' || github.event.inputs.deployment_target ==
+        ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: pytest -m "alerts_page_test"
+          REPORT: "report/ctrf-report.json"
+        run: pytest -m "alerts_page_test" --ctrf $REPORT
       - name: practice_form_test
-        if: "github.event.inputs.deployment_target == 'practice_form_test'"
+        if: "github.event.inputs.deployment_target == 'practice_form_test' || github.event.inputs.deployment_target ==
+        ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: pytest -m "practice_form_test"
+          REPORT: "report/ctrf-report.json"
+        run: pytest -m "practice_form_test" --ctrf $REPORT
       - name: text_box_test
-        if: "github.event.inputs.deployment_target == 'text_box_test'"
+        if: "github.event.inputs.deployment_target == 'text_box_test' || github.event.inputs.deployment_target ==
+        ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: pytest -m "text_box_test"
+          REPORT: "report/ctrf-report.json"
+        run: pytest -m "text_box_test" --ctrf $REPORT
       - name: Run all tests
-        if: "github.event.inputs.deployment_target == 'Run all tests'"
+        if: "github.event.inputs.deployment_target == 'Run all tests' || github.event.inputs.deployment_target ==
+        ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: pytest
+          REPORT: "report/ctrf-report.json"
+        run: pytest --ctrf $REPORT
       - name: Run CTRF annotations
         run: npx github-actions-ctrf report/ctrf-report.json
         if: always()
