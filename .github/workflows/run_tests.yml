@@ -50,7 +50,7 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "mkdir -p report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+          REPORT: mkdir -p "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
         run: pytest -m "check_box_test" --ctrf $REPORT
         continue-on-error: true
 
