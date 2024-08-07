@@ -59,7 +59,8 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: pytest -m "check_box_test"
+          REPORT: "report/ctrf-report.json"
+        run: pytest -m "check_box_test" --ctrf $REPORT
       - name: alerts_page_test
         if: "github.event.inputs.deployment_target == 'alerts_page_test'"
         env:
