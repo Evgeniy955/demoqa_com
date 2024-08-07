@@ -15,9 +15,9 @@ on:
           - text_box_test
           - Run all tests
 
-#  push:
-#    branches:
-#    - setup-git-actions
+  push:
+    branches:
+      - setup-git-actions
 
 #  schedule:
 #    - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
@@ -44,12 +44,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create report directory
+        run: |
+          mkdir -p "report/${{ github.event.inputs.deployment_target }}"
+
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/ctrf-report.json"
+          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
         run: pytest -m "check_box_test" --ctrf $REPORT
         continue-on-error: true
 
