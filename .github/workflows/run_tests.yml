@@ -46,7 +46,7 @@ jobs:
 
       - name: Create directory for this run
         run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}/$TIMESTAMP"
+          REPORT_DIR="report-${{ github.event.inputs.deployment_target }}/$TIMESTAMP"
           mkdir -p "$REPORT_DIR"
           echo "Created report directory: $REPORT_DIR"
 
