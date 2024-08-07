@@ -1,11 +1,15 @@
+import allure
 from allure import title
 from pytest import mark
 
 from tests.elements.pages.text_box_page import TextBox
 
 
+@mark.C0004
 @mark.medium_priority
 @mark.text_box_test
+@allure.story("check text box form elements")
+@allure.feature("text box test")
 @title('check text box form elements')
 def test_elements_of_text_box_form(driver, session):
     text_box = TextBox(driver, url='text-box')
@@ -14,9 +18,12 @@ def test_elements_of_text_box_form(driver, session):
     text_box.check_placeholders(driver)
 
 
+@mark.C0005
 @mark.regression
 @mark.critical_priority
 @mark.text_box_test
+@allure.story("check fill fields and submit")
+@allure.feature("text box test")
 @title('check fill fields and submit')
 def test_form(driver, session):
     text_box = TextBox(driver, url='text-box')

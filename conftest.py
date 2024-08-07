@@ -3,6 +3,7 @@ from time import sleep
 import pytest
 import selenium
 from selenium.common.exceptions import WebDriverException
+
 from config import driver as driver_setup
 
 
@@ -27,3 +28,14 @@ def driver(session):
 @pytest.fixture(scope="function")
 def session():
     return {}
+
+# @pytest.hookimpl(tryfirst=True)
+# def pytest_cmdline_preparse(args) -> None:
+#     if CREATE_ALLURE_REPORT:
+#         new_args = ["-v", f"--alluredir={ALLURE_REPORT_PATH}/allure-results", "--clean-alluredir"]
+#         for arg in new_args:
+#             if arg not in args:
+#                 if args[-1].split(".")[-1] == "py":
+#                     args.insert(-1, arg)
+#                 else:
+#                     args.append(arg)

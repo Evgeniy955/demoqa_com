@@ -1,4 +1,7 @@
 from typing import Tuple
+
+from allure import step
+
 from testlib.locators.locators_by import css_selector, xpath
 
 FULL_NAME: Tuple = css_selector('#userName')
@@ -14,5 +17,6 @@ HEADER_TEXT_BOX: Tuple = xpath("//h1[contains(@class, 'text-center')]")
 LABELS_TEXT: Tuple = xpath('//*[@id="userForm"]//*[contains(@id,"-label")]')
 
 
+@step('check send form')
 def check_send_form(index=None):
     return xpath(f"//div[@id='output']//div[contains(@class, 'border')]//p[{index}]")

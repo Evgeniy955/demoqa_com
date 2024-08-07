@@ -1,5 +1,6 @@
 import random
 
+from allure import step
 from faker import Faker
 
 from testlib.data.data import Person, PersonInTextBox, get_project_path
@@ -7,6 +8,7 @@ from testlib.data.data import Person, PersonInTextBox, get_project_path
 faker_en = Faker('En')
 
 
+@step('generated person')
 def generated_person():
     return Person(
         last_name=faker_en.last_name(),
@@ -18,6 +20,7 @@ def generated_person():
     )
 
 
+@step('generated person for text box')
 def generated_person_for_text_box():
     return PersonInTextBox(
         full_name=faker_en.name(),
@@ -27,6 +30,7 @@ def generated_person_for_text_box():
     )
 
 
+@step('generated file')
 def generated_file():
     path = get_project_path() + '\\Translation{random.randint(10, 100)}.txt'
     file = open(path, 'w')
