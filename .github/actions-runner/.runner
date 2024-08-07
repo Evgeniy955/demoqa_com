@@ -1,9 +1,0 @@
-﻿{
-  "agentId": 21,
-  "agentName": "self-hosted",
-  "poolId": 1,
-  "poolName": "Default",
-  "serverUrl": "https://pipelinesghubeus3.actions.githubusercontent.com/5PqKWJ57Qr7d0jdDV7W5XZbk4vlHvygD7wK7ewQWgXg2LcXMBR/",
-  "gitHubUrl": "https://github.com/Evgeniy955/demoqa_com",
-  "workFolder": "_work"
-}
