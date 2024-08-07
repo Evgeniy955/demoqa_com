@@ -62,7 +62,7 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/ctrf-report.json"
+          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
         run: pytest -m "alerts_page_test" --ctrf $REPORT
         continue-on-error: true
 
@@ -71,7 +71,7 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/ctrf-report.json"
+          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
         run: pytest -m "practice_form_test" --ctrf $REPORT
         continue-on-error: true
 
@@ -80,7 +80,7 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/ctrf-report.json"
+          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
         run: pytest -m "text_box_test" --ctrf $REPORT
         continue-on-error: true
 
@@ -89,7 +89,7 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/ctrf-report.json"
+          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
         run: pytest --ctrf $REPORT
         continue-on-error: true
 
