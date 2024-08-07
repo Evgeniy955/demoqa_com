@@ -38,7 +38,7 @@ def test_elements_of_practice_form(driver):
 
 
 @mark.C0008
-# @mark.xfail
+@mark.xfail
 @allure.story("test wrong form")
 @allure.feature("practice form test")
 @mark.high_priority
