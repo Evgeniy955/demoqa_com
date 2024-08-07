@@ -45,10 +45,11 @@ jobs:
 
       - name: install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          npm install
-      - name: build
-        run: npx tsc
+      #          npm install
+      #      - name: build
+      #        run: npx tsc
 
       #      - name: Install sgithub-actions-ctrf package
       #        run: npm install github-actions-ctrf
