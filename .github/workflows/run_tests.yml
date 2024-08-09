@@ -51,6 +51,7 @@ jobs:
             sudo apt-get install google-chrome-stable
           if [[ ${{ matrix.BROWSER }} == "edge"; then 
             sudo apt update && sudo apt install microsoft-edge-stable
+          fi
 
       - name: install dependencies
         run: |
