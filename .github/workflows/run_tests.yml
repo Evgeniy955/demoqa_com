@@ -113,7 +113,7 @@ jobs:
         run: pytest --ctrf $REPORT
         continue-on-error: true
 
-#      - name: Run CTRF annotations
-#        run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
-#        continue-on-error: true
+      - name: Run CTRF annotations
+        run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
+        continue-on-error: true
 #        if: always()
