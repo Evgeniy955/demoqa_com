@@ -62,11 +62,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create report directory
-        run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-          mkdir -p "$REPORT_DIR"
-          echo "Created report directory: $REPORT_DIR"
+      #      - name: Create report directory
+      #        run: |
+      #          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
+      #          mkdir -p "$REPORT_DIR"
+      #          echo "Created report directory: $REPORT_DIR"
 
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
