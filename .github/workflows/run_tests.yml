@@ -21,7 +21,7 @@ on:
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
-    - cron: 00 23 * * *   # Runs at 23:00 UTC every Saturday
+    - cron: 10 23 * * *   # Runs at 23:00 UTC every Saturday
 
 
 jobs:
@@ -115,4 +115,5 @@ jobs:
 
       - name: Run CTRF annotations
         run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
+        continue-on-error: true
         if: always()
