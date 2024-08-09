@@ -6,7 +6,7 @@ on:
       deployment_target:
         description: Choose target
         required: true
-        default: practice_form_test
+        default: Run all tests
         type: choice
         options:
           - check_box_test
@@ -19,8 +19,8 @@ on:
     branches:
       - setup-git-actions
 
-#  schedule:
-#    - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
+  schedule:
+    - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
 
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
         include:
           - BROWSER: "chrome"
           - BROWSER: "edge"
-    #            ["chrome" "edge", "firefox", "remote"]
+          - BROWSER: "firefox"
 
     steps:
       - name: Checkout repository
@@ -48,9 +48,12 @@ jobs:
       - name: Install browser
         run: |
           if [[ ${{ matrix.BROWSER }} == "chrome" ]]; then 
-            sudo apt-get install google-chrome-stable
+            sudo apt-get install -y google-chrome-stable
           elif [[ ${{ matrix.BROWSER }} == "edge" ]]; then 
-            sudo apt update && sudo apt install microsoft-edge-stable
+            sudo apt update && sudo apt install -y microsoft-edge-stable
+          elif [[ ${{ matrix.BROWSER }} == "firefox" ]]; then 
+            sudo apt update 
+            sudo apt install firefox
           fi
 
       - name: install dependencies
