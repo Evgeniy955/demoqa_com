@@ -27,6 +27,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        include:
+          - BROWSER: "chrome"
+          - BROWSER: "edge"
+    #            ["chrome" "edge", "firefox", "remote"]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,8 +45,12 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install Chrome
-        run: sudo apt-get install google-chrome-stable
+      - name: Install browser
+        run: |
+          if [[ ${{ matrix.BROWSER }} == "chrome"; then 
+            sudo apt-get install google-chrome-stable
+          if [[ ${{ matrix.BROWSER }} == "edge"; then 
+            sudo apt update && sudo apt install microsoft-edge-stable
 
       - name: install dependencies
         run: |
