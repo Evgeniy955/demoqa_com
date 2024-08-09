@@ -74,7 +74,9 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "report/check_box_test/ctrf-report.json"
-        run: pytest -m "check_box_test" --ctrf $REPORT
+        run: |
+          pytest -m "check_box_test" --ctrf $REPORT
+          npx github-actions-ctrf $REPORT
         continue-on-error: true
 
       - name: alerts_page_test
@@ -83,7 +85,9 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "report/alerts_page_test/ctrf-report.json"
-        run: pytest -m "alerts_page_test" --ctrf $REPORT
+        run: |
+          pytest -m "alerts_page_test" --ctrf $REPORT
+          npx github-actions-ctrf $REPORT
         continue-on-error: true
 
       - name: practice_form_test
@@ -92,7 +96,9 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "report/practice_form_test/ctrf-report.json"
-        run: pytest -m "practice_form_test" --ctrf $REPORT
+        run: |
+          pytest -m "practice_form_test" --ctrf $REPORT
+          npx github-actions-ctrf $REPORT
         continue-on-error: true
 
       - name: text_box_test
@@ -101,7 +107,9 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "report/text_box_test/ctrf-report.json"
-        run: pytest -m "text_box_test" --ctrf $REPORT
+        run: |
+          pytest -m "text_box_test" --ctrf $REPORT
+          npx github-actions-ctrf $REPORT
         continue-on-error: true
 
       - name: Run all tests
@@ -110,10 +118,12 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "report/Run all tests/ctrf-report.json"
-        run: pytest --ctrf $REPORT
+        run: |
+          pytest --ctrf $REPORT
+          npx github-actions-ctrf $REPORT
         continue-on-error: true
 
-      - name: Run CTRF annotations
-        run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
-        continue-on-error: true
+#      - name: Run CTRF annotations
+#        run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
+#        continue-on-error: true
 #        if: always()
