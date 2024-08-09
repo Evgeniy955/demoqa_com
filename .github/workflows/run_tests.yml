@@ -62,11 +62,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      #      - name: Create report directory
-      #        run: |
-      #          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-      #          mkdir -p "$REPORT_DIR"
-      #          echo "Created report directory: $REPORT_DIR"
+      - name: Create report directory
+        run: |
+          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
+          mkdir -p "$REPORT_DIR"
+          echo "Created report directory: $REPORT_DIR"
 
       - name: check_box_test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
@@ -74,11 +74,7 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "$REPORT_DIR/ctrf-report.json"
-        run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-          mkdir -p "$REPORT_DIR"
-          echo "Created report directory: $REPORT_DIR"
-          pytest -m "check_box_test" --ctrf $REPORT
+        run: pytest -m "check_box_test" --ctrf $REPORT
         continue-on-error: true
 
       - name: alerts_page_test
@@ -87,11 +83,7 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "REPORT_DIR/ctrf-report.json"
-        run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-          mkdir -p "$REPORT_DIR"
-          echo "Created report directory: $REPORT_DIR"
-          pytest -m "alerts_page_test" --ctrf $REPORT
+        run: pytest -m "alerts_page_test" --ctrf $REPORT
         continue-on-error: true
 
       - name: practice_form_test
@@ -100,11 +92,7 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "REPORT_DIR/ctrf-report.json"
-        run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-          mkdir -p "$REPORT_DIR"
-          echo "Created report directory: $REPORT_DIR"
-          pytest -m "practice_form_test" --ctrf $REPORT
+        run: pytest -m "practice_form_test" --ctrf $REPORT
         continue-on-error: true
 
       - name: text_box_test
@@ -113,11 +101,7 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "REPORT_DIR/ctrf-report.json"
-        run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-          mkdir -p "$REPORT_DIR"
-          echo "Created report directory: $REPORT_DIR"
-          pytest -m "text_box_test" --ctrf $REPORT
+        run: pytest -m "text_box_test" --ctrf $REPORT
         continue-on-error: true
 
       - name: Run all tests
@@ -126,14 +110,10 @@ jobs:
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "$REPORT_DIR/ctrf-report.json"
-        run: |
-          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-          mkdir -p "$REPORT_DIR"
-          echo "Created report directory: $REPORT_DIR"
-          pytest --ctrf $REPORT
+        run: pytest --ctrf $REPORT
         continue-on-error: true
 
       - name: Run CTRF annotations
         run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
         continue-on-error: true
-        if: always()
+#        if: always()
