@@ -13,7 +13,7 @@ on:
           - alerts_page_test
           - practice_form_test
           - text_box_test
-          - run all tests
+          - run_all_tests
 
   push:
     branches:
@@ -113,14 +113,14 @@ jobs:
         continue-on-error: true
 
       - name: run all tests
-        if: "github.event.inputs.deployment_target == 'run all tests'"
+        if: "github.event.inputs.deployment_target == 'run_all_tests'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           REPORT: "report/run_all_tests/ctrf-report.json"
         run: |
           pytest --ctrf $REPORT
           npx github-actions-ctrf $REPORT
-        continue-on-error: true
+#        continue-on-error: true
 
 #      - name: Run CTRF annotations
 #        run: npx github-actions-ctrf REPORT_DIR/ctrf-report.json
