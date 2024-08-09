@@ -47,9 +47,9 @@ jobs:
 
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} == "chrome"; then 
+          if [[ ${{ matrix.BROWSER }} == "chrome"]]; then 
             sudo apt-get install google-chrome-stable
-          if [[ ${{ matrix.BROWSER }} == "edge"; then 
+          if [[ ${{ matrix.BROWSER }} == "edge"]]; then 
             sudo apt update && sudo apt install microsoft-edge-stable
           fi
 
