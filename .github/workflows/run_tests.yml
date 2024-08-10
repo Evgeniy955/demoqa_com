@@ -147,7 +147,7 @@ jobs:
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
-      - name: Run CTRF annotations
-        run: npx github-actions-ctrf "report/${{ env.TEST_NAME }}/ctrf-report.json"
-        continue-on-error: true
+#      - name: Run CTRF annotations
+#        run: npx github-actions-ctrf "report/${{ env.TEST_NAME }}/ctrf-report.json"
+#        continue-on-error: true
 #        if: always()
