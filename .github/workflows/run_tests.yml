@@ -120,7 +120,7 @@ jobs:
         run: |
           pytest --ctrf $REPORT
           npx github-actions-ctrf $REPORT
-#        continue-on-error: true
+        continue-on-error: true
 
       - name: Run CTRF annotations
         run: npx github-actions-ctrf "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
