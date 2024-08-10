@@ -78,6 +78,7 @@ jobs:
         run: |
           pytest -m "check_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
+          echo ${{ env.TEST_NAME }}
         continue-on-error: true
 
       - name: alerts page test
@@ -90,6 +91,7 @@ jobs:
         run: |
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
+          echo ${{ env.TEST_NAME }}
         continue-on-error: true
 
       - name: practice form test
@@ -102,6 +104,7 @@ jobs:
         run: |
           pytest -m "practice_form_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
+          echo ${{ env.TEST_NAME }}
         continue-on-error: true
 
       - name: text box test
