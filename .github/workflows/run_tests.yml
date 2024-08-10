@@ -72,10 +72,12 @@ jobs:
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-          TEST_NAME: "check_box_test"
+
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
+
         run: |
+          TEST_NAME: "check_box_test"
+          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
           mkdir -p "$(dirname $REPORT)"
@@ -88,10 +90,12 @@ jobs:
         if: "github.event.inputs.deployment_target == 'alerts_page_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-          TEST_NAME: "alerts_page_test"
+
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "${{ env.TEST_NAME }}/ctrf-report.json"
+
         run: |
+          TEST_NAME: "alerts_page_test"
+          REPORT: "${{ env.TEST_NAME }}/ctrf-report.json"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
           mkdir -p "$(dirname $REPORT)"
