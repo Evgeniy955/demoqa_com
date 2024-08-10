@@ -102,7 +102,7 @@ jobs:
         env:
           TEST_NAME: "practice_form_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/'${{ env.TEST_NAME }}'/ctrf-report.json"
+          REPORT: "report/'$TEST_NAME'/ctrf-report.json"
         run: |
           mkdir -p "$(dirname $REPORT)"
           pytest -m "practice_form_test" --ctrf $REPORT
@@ -116,11 +116,12 @@ jobs:
         env:
           TEST_NAME: "text_box_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
+          REPORT: "report/'$TEST_NAME'/ctrf-report.json"
         run: |
           mkdir -p "$(dirname $REPORT)"
           pytest -m "text_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
+          echo ${{ env.TEST_NAME }}
         continue-on-error: true
 
       - name: run all tests
