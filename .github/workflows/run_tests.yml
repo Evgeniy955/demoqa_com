@@ -131,11 +131,11 @@ jobs:
         continue-on-error: true
 
 
-#      - name: Run CTRF annotations
-#        run: |
-#          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-#          echo "REPORT path is $REPORT"
-#          mkdir -p "report"
-#          npx github-actions-ctrf "report/ctrf-report.json"
-#        continue-on-error: true
-#        if: always()
+      - name: Run CTRF annotations
+        run: |
+          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
+          echo "REPORT path is $REPORT"
+          mkdir -p "report"
+          npx github-actions-ctrf "report/ctrf-report.json"
+        continue-on-error: true
+        if: always()
