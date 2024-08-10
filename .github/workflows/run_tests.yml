@@ -15,9 +15,9 @@ on:
           - text_box_test
           - run_all_tests
 
-  push:
-    branches:
-      - setup-git-actions
+  #  push:
+  #    branches:
+  #      - setup-git-actions
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
@@ -70,8 +70,6 @@ jobs:
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-          echo "REPORT path is $REPORT"
           pytest -m "check_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
@@ -83,8 +81,6 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-          echo "REPORT path is $REPORT"
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
@@ -96,8 +92,6 @@ jobs:
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-          echo "REPORT path is $REPORT"
           pytest -m "practice_form_test" --ctrf $REPORT || true
           npx github-actions-ctrf $REPORT || true
         continue-on-error: true
@@ -109,8 +103,6 @@ jobs:
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-          echo "REPORT path is $REPORT"
           pytest -m "text_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
@@ -124,18 +116,6 @@ jobs:
         run: |
           TEST_NAME="run_all_tests"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-          echo "REPORT path is $REPORT"
           pytest --ctrf $REPORT || true 
           npx github-actions-ctrf $REPORT
         continue-on-error: true
-
-
-#      - name: Run CTRF annotations
-#        run: |
-#          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
-#          echo "REPORT path is $REPORT"
-#          mkdir -p "report"
-#          npx github-actions-ctrf "report/ctrf-report.json"
-#        continue-on-error: true
-#        if: always()
