@@ -72,8 +72,9 @@ jobs:
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
         ''"
         env:
+          TEST_NAME: "check_box_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
         run: |
           pytest -m "check_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
@@ -83,8 +84,9 @@ jobs:
         if: "github.event.inputs.deployment_target == 'alerts_page_test' || github.event.inputs.deployment_target ==
         ''"
         env:
+          TEST_NAME: "alerts_page_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
         run: |
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
@@ -94,8 +96,9 @@ jobs:
         if: "github.event.inputs.deployment_target == 'practice_form_test' || github.event.inputs.deployment_target ==
         ''"
         env:
+          TEST_NAME: "practice_form_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
         run: |
           pytest -m "practice_form_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
@@ -105,8 +108,9 @@ jobs:
         if: "github.event.inputs.deployment_target == 'text_box_test' || github.event.inputs.deployment_target ==
         ''"
         env:
+          TEST_NAME: "text_box_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
         run: |
           pytest -m "text_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
@@ -115,14 +119,15 @@ jobs:
       - name: run all tests
         if: "github.event.inputs.deployment_target == 'run_all_tests'"
         env:
+          TEST_NAME: "run_all_tests"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
         run: |
           pytest --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
       - name: Run CTRF annotations
-        run: npx github-actions-ctrf "report/${{ github.event.inputs.deployment_target }}/ctrf-report.json"
+        run: npx github-actions-ctrf "report/${{ env.TEST_NAME }}/ctrf-report.json"
         continue-on-error: true
 #        if: always()
