@@ -62,19 +62,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      #      - name: Create report directory
-      #        run: |
-      #          REPORT_DIR="report/${{ github.event.inputs.deployment_target }}"
-      #          mkdir -p "$REPORT_DIR"
-      #          echo "Created report directory: $REPORT_DIR"
 
       - name: check box test
         if: "github.event.inputs.deployment_target == 'check_box_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
@@ -89,9 +82,7 @@ jobs:
         if: "github.event.inputs.deployment_target == 'alerts_page_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
@@ -106,9 +97,7 @@ jobs:
         if: "github.event.inputs.deployment_target == 'practice_form_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
@@ -123,12 +112,12 @@ jobs:
         if: "github.event.inputs.deployment_target == 'text_box_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
+          echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
+          echo "REPORT path is $REPORT"
           pytest -m "text_box_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
@@ -136,10 +125,10 @@ jobs:
       - name: run all tests
         if: "github.event.inputs.deployment_target == 'run_all_tests'"
         env:
-          TEST_NAME: "run_all_tests"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
         run: |
+          TEST_NAME="run_all_tests"
+          REPORT="report/${TEST_NAME}/ctrf-report.json"
           pytest --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
