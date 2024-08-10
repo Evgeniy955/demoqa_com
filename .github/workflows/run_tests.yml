@@ -122,7 +122,9 @@ jobs:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: |
           TEST_NAME="run_all_tests"
-          REPORT="report/${TEST_NAME}/ctrf-report.json"
+          REPORT_DIR="report/${TEST_NAME}"
+          REPORT="REPORT_DIR/ctrf-report.json"
+          mkdir -p "$REPORT_DIR"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
           pytest || true --ctrf $REPORT 
