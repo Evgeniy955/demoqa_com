@@ -73,7 +73,7 @@ jobs:
           REPORT="report/${TEST_NAME}/ctrf-report.json"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
-          pytest || true --ctrf $REPORT 
+          pytest --ctrf $REPORT  || true 
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
