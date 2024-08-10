@@ -76,8 +76,8 @@ jobs:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
 
         run: |
-          TEST_NAME: "check_box_test"
-          REPORT: "report/${{ env.TEST_NAME }}/ctrf-report.json"
+          TEST_NAME="check_box_test"
+          REPORT="report/${TEST_NAME}/ctrf-report.json"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
           mkdir -p "$(dirname $REPORT)"
@@ -94,8 +94,8 @@ jobs:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
 
         run: |
-          TEST_NAME: "alerts_page_test"
-          REPORT: "${{ env.TEST_NAME }}/ctrf-report.json"
+          TEST_NAME="alerts_page_test"
+          REPORT="report/${TEST_NAME}/ctrf-report.json"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
           mkdir -p "$(dirname $REPORT)"
@@ -108,10 +108,12 @@ jobs:
         if: "github.event.inputs.deployment_target == 'practice_form_test' || github.event.inputs.deployment_target ==
         ''"
         env:
-          TEST_NAME: "practice_form_test"
+
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "${{ env.TEST_NAME }}/ctrf-report.json"
+
         run: |
+          TEST_NAME="practice_form_test"
+          REPORT="report/${TEST_NAME}/ctrf-report.json"
           echo "TEST_NAME is $TEST_NAME"  # Проверка значения переменной
           echo "REPORT path is $REPORT"
           mkdir -p "$(dirname $REPORT)"
