@@ -74,7 +74,7 @@ jobs:
         env:
           TEST_NAME: "check_box_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/'${{ env.TEST_NAME }}'/ctrf-report.json"
+          REPORT: "report/'$TEST_NAME'/ctrf-report.json"
         run: |
           mkdir -p "$(dirname $REPORT)"
           pytest -m "check_box_test" --ctrf $REPORT
@@ -88,7 +88,7 @@ jobs:
         env:
           TEST_NAME: "alerts_page_test"
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          REPORT: "report/'${{ env.TEST_NAME }}'/ctrf-report.json"
+          REPORT: "report/'$TEST_NAME'/ctrf-report.json"
         run: |
           mkdir -p "$(dirname $REPORT)"
           pytest -m "alerts_page_test" --ctrf $REPORT
