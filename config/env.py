@@ -1,5 +1,17 @@
 import os
 
+import platform
+
+def get_os_type():
+    os_type = platform.system()
+    if os_type == "Windows":
+        return "Windows"
+    elif os_type == "Darwin":
+        return "macOS"
+    else:
+        return "Your OS is not supported"
+
+current_os = get_os_type()
 
 def get(key, default=None):
     var = os.environ.get(key=key, default=default)
@@ -13,11 +25,15 @@ def get(key, default=None):
 
 def get_browser_name(browser, current_directory):
     if browser == 'chrome':
-        path = f'{current_directory}\\chrome\\allure-results'
+        path = f'{current_directory}/chrome_report/allure-results'
     elif browser == 'firefox':
-        path = f'{current_directory}\\firefox\\allure-results'
+        path = f'{current_directory}/firefox_report/allure-results'
     else:
-        path = f'{current_directory}\\edge\\allure-results'
+        path = f'{current_directory}/edge_report/allure-results'
+    if current_os == "Windows":
+        path = path.replace("/", "\\")
+    else:
+        pass
     return path
 
 
@@ -27,4 +43,3 @@ ALLURE_REPORT_PATH = get_browser_name(browser=BROWSER, current_directory=CURRENT
 
 CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
 
-# -v -s --alluredir=allure_results
