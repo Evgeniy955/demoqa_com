@@ -5,6 +5,7 @@ certifi==2024.7.4
 cffi==1.16.0
 pytest-json-ctrf
 charset-normalizer==3.3.2
+cmdline-add-args
 click==8.1.7
 colorama==0.4.6
 driver==0.1.0
