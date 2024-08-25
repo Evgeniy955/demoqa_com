@@ -43,5 +43,4 @@ CURRENT_DIRECTORY = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
 ALLURE_REPORT_PATH = get_browser_name(browser=BROWSER, current_directory=CURRENT_DIRECTORY)
 
-CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
-
+CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
