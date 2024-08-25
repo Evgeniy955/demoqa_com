@@ -8,6 +8,8 @@ def get_os_type():
         return "Windows"
     elif os_type == "Darwin":
         return "macOS"
+    elif os_type == "Linux":
+        return "Ubuntu"
     else:
         return "Your OS is not supported"
 

@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cmdline-add-args"
-version = "0.0.2"
-description = "Pytest plugin for custom argument handling and Allure reporting"
-authors = [{ name = "Your Name", email = "your.email@example.com" }]
+version = "1.0.2"
+description = "Pytest plugin for custom argument handling and Allure reporting. This plugin allows you to add arguments before running a test."
+authors = [{ name = "Yevhen Halitsyn", email = "galitsyn.evgeniy955@gmail.com" }]
 license = { text = "MIT" }
 
 
 [tool.setuptools]
-packages = ["cmdline_add_args", "config"]
+packages = ["cmdline_add_args"]
 
 [project.entry-points."pytest11"]
 cmdline_add_args = "cmdline_add_args.plugin"
