@@ -7,6 +7,9 @@ from selenium.common.exceptions import WebDriverException
 from config import driver as driver_setup
 
 
+# pytest_plugins = ["cmdline_add_args"]
+
+
 @pytest.fixture()
 def driver(session):
     try:
