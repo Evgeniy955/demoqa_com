@@ -42,5 +42,6 @@ def get_browser_name(browser, current_directory):
 CURRENT_DIRECTORY = os.path.dirname(os.path.dirname(__file__))
 BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
 ALLURE_REPORT_PATH = get_browser_name(browser=BROWSER, current_directory=CURRENT_DIRECTORY)
+print(ALLURE_REPORT_PATH)
 
 CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
