@@ -27,11 +27,11 @@ def get(key, default=None):
 
 def get_browser_name(browser, current_directory):
     if browser == 'chrome':
-        path = f'{current_directory}/chrome_report/allure-results'
+        path = f'{current_directory}/allure-results/chrome'
     elif browser == 'firefox':
-        path = f'{current_directory}/firefox_report/allure-results'
+        path = f'{current_directory}/allure-results/firefox'
     else:
-        path = f'{current_directory}/edge_report/allure-results'
+        path = f'{current_directory}/allure-results/edge'
     if current_os == "Windows":
         path = path.replace("/", "\\")
     else:
@@ -43,4 +43,4 @@ CURRENT_DIRECTORY = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
 ALLURE_REPORT_PATH = get_browser_name(browser=BROWSER, current_directory=CURRENT_DIRECTORY)
 
-CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
+CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
