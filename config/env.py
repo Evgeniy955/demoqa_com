@@ -39,7 +39,7 @@ def get_browser_name(browser, current_directory):
     return path
 
 
-CURRENT_DIRECTORY = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+CURRENT_DIRECTORY = os.path.dirname(os.path.dirname(__file__))
 BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
 ALLURE_REPORT_PATH = get_browser_name(browser=BROWSER, current_directory=CURRENT_DIRECTORY)
 
