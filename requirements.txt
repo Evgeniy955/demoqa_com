@@ -4,7 +4,7 @@ attrs==23.2.0
 certifi==2024.7.4
 cffi==1.16.0
 charset-normalizer==3.3.2
-cmdline-add-args==1.2.1
+cmdline-add-args
 colorama==0.4.6
 exceptiongroup==1.2.2
 execnet==2.1.1
@@ -27,9 +27,10 @@ pyflakes==3.2.0
 PyHamcrest==2.1.0
 pyproject_hooks==1.1.0
 pytest==8.3.2
-pytest-json-ctrf==0.3.1
+pytest-json-ctrf
 pytest-xdist==3.6.1
 python-dateutil==2.9.0.post0
+python-dotenv
 pytz==2024.1
 requests==2.32.3
 requests-toolbelt==1.0.0
