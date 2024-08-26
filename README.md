@@ -18,4 +18,4 @@ way to inject arguments into Pytest and control the reporting process with Allur
   specified
   e.g:
 - CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
-- ALLURE_REPORT_PATH = f'{current_directory}/browser_report/allure-results'
+- ALLURE_REPORT_PATH = f'{current_directory}/allure-results/browser_name'
