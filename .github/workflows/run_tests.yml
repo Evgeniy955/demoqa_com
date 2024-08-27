@@ -91,7 +91,7 @@ jobs:
           npx github-actions-ctrf $REPORT
         continue-on-error: true
       - name: Check Allure Results Directory
-        run: ls -la venv
+        run: ls -la allure-results
         continue-on-error: true
 
       - name: practice form test
