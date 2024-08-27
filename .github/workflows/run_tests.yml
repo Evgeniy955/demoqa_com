@@ -6,7 +6,7 @@ on:
       deployment_target:
         description: Choose target
         required: true
-        default: run_all_tests
+        default: alerts_page_test
         type: choice
         options:
           - check_box_test
