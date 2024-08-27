@@ -5,11 +5,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from config.env import BROWSER, get
 
-# EXPORT_RESULT_IN_TESTRAIL = env.get("EXPORT_RESULT_IN_TESTRAIL", True)
-# RUN_ID = env.get("PLAN_ID", 0)
-# CREATE_ALLURE_REPORT = env.get("CREATE_ALLURE_REPORT", True)
-# ALLURE_REPORT_PATH = env.get("ALLURE_REPORT_PATH", os.path.dirname(__file__))
-# SESSION_RESULT_PATH = env.get("SESSION_RESULT_PATH", os.path.dirname(__file__))
 REMOTE_OPTIONS = get("REMOTE_OPTIONS", "")
 
 browsers: Dict[str, Type[WebDriver]] = {

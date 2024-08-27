@@ -11,5 +11,5 @@ def get(key, default=None):
     return var
 
 
-BROWSER = get("BROWSER", "chrome")
-CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
+BROWSER = "chrome"  # browser name ["chrome", "edge", "firefox", "remote"]
+CREATE_ALLURE_REPORT = True
