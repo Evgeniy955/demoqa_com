@@ -6,7 +6,7 @@ on:
       deployment_target:
         description: Choose target
         required: true
-        default: Run all tests
+        default: run_all_tests
         type: choice
         options:
           - check_box_test
@@ -153,8 +153,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: _site
-          path:
-            _site
+          path: _site
           retention-days: 1
 
   publish-report:
