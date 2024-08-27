@@ -87,7 +87,7 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "alerts_page_test" --ctrf $REPORT
+          pytest -m "alerts_page_test" --ctrf $REPORT --alluredir=allure-results
           npx github-actions-ctrf $REPORT
       - name: Store allure results
         uses: actions/upload-artifact@v3
