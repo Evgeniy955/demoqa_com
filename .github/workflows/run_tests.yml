@@ -90,6 +90,9 @@ jobs:
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
+      - name: Check Allure Results Directory
+        run: ls -la allure-results/chrome
+        continue-on-error: true
 
       - name: practice form test
         if: "github.event.inputs.deployment_target == 'practice_form_test'"
@@ -135,9 +138,6 @@ jobs:
           name: allure-results
           path: allure-results/chrome
           retention-days: 1
-      - name: Check Allure Results Directory
-        run: ls -la allure-results/chrome
-        continue-on-error: true
 
   generate-report:
     runs-on: ubuntu-latest
