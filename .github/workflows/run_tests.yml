@@ -150,6 +150,8 @@ jobs:
       - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
+      - name: Check Allure Results Directory
+        run: ls -la allure-results/rep
       - run: allure generate -c allure-results/rep -o _site
       - name: Store generated report
         uses: actions/upload-artifact@v3
