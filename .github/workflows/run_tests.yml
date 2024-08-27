@@ -152,6 +152,7 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Check Allure Results Directory
         run: ls -la allure-results/rep
+        continue-on-error: true
       - run: allure generate -c allure-results -o _site
       - name: Store generated report
         uses: actions/upload-artifact@v3
