@@ -92,9 +92,9 @@ jobs:
       - name: Store allure history
         uses: actions/upload-artifact@v3
         with:
-          name: allure-results
+          name: chrome
           path:
-            allure-results
+            allure-results/chrome
           retention-days: 1
         continue-on-error: true
 
