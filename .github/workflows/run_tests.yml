@@ -96,6 +96,8 @@ jobs:
           path: allure-results/chrome
           retention-days: 1
         continue-on-error: true
+      - name: Check Allure Results Directory
+        run: ls -la allure-results/chrome
 
       - name: practice form test
         if: "github.event.inputs.deployment_target == 'practice_form_test'"
