@@ -75,7 +75,7 @@ jobs:
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "check_box_test" --ctrf $REPORT --alluredir=allure-results/chrome
+          pytest -m "check_box_test" --ctrf $REPORT --alluredir=allure-results
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -94,7 +94,7 @@ jobs:
         with:
           name: allure-results
           path:
-            allure-results/chrome
+            allure-results
           retention-days: 1
         continue-on-error: true
 
@@ -148,7 +148,7 @@ jobs:
       - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
-      - run: allure generate -c allure-results/chrome -o _site
+      - run: allure generate -c allure-results -o _site
       - name: Store generated report
         uses: actions/upload-artifact@v3
         with:
