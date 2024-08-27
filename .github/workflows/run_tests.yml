@@ -94,7 +94,7 @@ jobs:
         with:
           name: allure-results
           path:
-            allure-results
+            allure-results/chrome
           retention-days: 1
         continue-on-error: true
 
