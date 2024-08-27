@@ -18,7 +18,7 @@ def pytest_load_initial_conftests(args):
     else:
         print(f"Environment file {env_path} not found.")
 
-    create_allure_report = os.getenv('CREATE_ALLURE_REPORT', CREATE_ALLURE_REPORT).lower() == 'true'
+    create_allure_report = str(os.getenv('CREATE_ALLURE_REPORT', CREATE_ALLURE_REPORT)).lower() == 'true'
     browser = os.getenv('BROWSER', BROWSER).lower()
     allure_report_path = get_browser_name(browser=browser, current_directory=CURRENT_DIRECTORY)
 
