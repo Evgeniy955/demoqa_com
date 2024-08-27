@@ -91,7 +91,7 @@ jobs:
           npx github-actions-ctrf $REPORT
         continue-on-error: true
       - name: Check Allure Results Directory
-        run: ls -la allure-results/chrome
+        run: ls -la demoqa_com/allure-results/chrome
         continue-on-error: true
 
       - name: practice form test
