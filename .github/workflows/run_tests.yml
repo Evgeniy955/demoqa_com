@@ -90,7 +90,7 @@ jobs:
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
       - name: Store allure history
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chrome
           path:
