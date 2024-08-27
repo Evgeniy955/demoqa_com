@@ -89,15 +89,6 @@ jobs:
           REPORT="report/${TEST_NAME}/ctrf-report.json"
           pytest -m "alerts_page_test" --ctrf $REPORT --alluredir=allure-results/rep
           npx github-actions-ctrf $REPORT
-      - name: Store allure results
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-results
-          path: allure-results/rep
-          retention-days: 1
-        continue-on-error: true
-      - name: Check Allure Results Directory
-        run: ls -la allure-results/chrome
 
       - name: practice form test
         if: "github.event.inputs.deployment_target == 'practice_form_test'"
@@ -136,6 +127,16 @@ jobs:
           pytest --ctrf $REPORT || true 
           npx github-actions-ctrf $REPORT
         continue-on-error: true
+
+      - name: Store allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results/rep
+          retention-days: 1
+        continue-on-error: true
+      - name: Check Allure Results Directory
+        run: ls -la allure-results/rep
 
   generate-report:
     runs-on: ubuntu-latest
