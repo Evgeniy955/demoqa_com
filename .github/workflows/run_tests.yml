@@ -75,7 +75,7 @@ jobs:
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "check_box_test" --ctrf $REPORT
+          pytest -m "check_box_test" --ctrf $REPORT --alluredir=allure-results/chrome
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
