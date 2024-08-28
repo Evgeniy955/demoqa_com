@@ -3,6 +3,3 @@
 .idea/**/workspace.xml
 .venv/
 /tests/allure_results/
-/tests/chrome_report/
-/tests/firefox_report/
-/tests/edge_report/
