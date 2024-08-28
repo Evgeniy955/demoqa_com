@@ -43,11 +43,14 @@ def get_browser_name(browser, current_directory):
 
 if current_os == "Windows":
     CURRENT_DIRECTORY = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+elif current_os == "Darwin":
+    CURRENT_DIRECTORY = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
 else:
-    # CURRENT_DIRECTORY = os.path.dirname(
-    #     os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
-    CURRENT_DIRECTORY = (os.path.dirname(os.path.dirname(__file__)))
+    target_directory = "/home/runner/work/demoqa_com/demoqa_com"
+    os.chdir(target_directory)
+    CURRENT_DIRECTORY = target_directory
+
 BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
 CREATE_ALLURE_REPORT = os.getenv('CREATE_ALLURE_REPORT', True)
 print("Current_folder: ", CURRENT_DIRECTORY)
-os.system(f'echo PARTH {CURRENT_DIRECTORY}')
