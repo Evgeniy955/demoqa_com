@@ -65,6 +65,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install -e .
 
 
       - name: check box test
@@ -87,7 +88,7 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "alerts_page_test" --ctrf $REPORT --alluredir=allure-results/rep
+          pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -137,11 +138,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/rep
+          path: allure-results/chrome
           retention-days: 1
         continue-on-error: true
       - name: Check Allure Results Directory
-        run: ls -la allure-results/rep
+        run: ls -la allure-results/chrome
+        continue-on-error: true
 
   generate-report:
     runs-on: ubuntu-latest
