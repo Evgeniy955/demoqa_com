@@ -1,8 +1,6 @@
 import os
 import platform
 
-from config.env import BROWSER
-
 
 def get(key, default=None):
     var = os.environ.get(key=key, default=default)
@@ -49,4 +47,7 @@ def get_browser_name(browser, current_directory):
 #     CURRENT_DIRECTORY = os.path.dirname(
 #         os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
 CURRENT_DIRECTORY = os.path.dirname(os.path.dirname(__file__))
+BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
+CREATE_ALLURE_REPORT = os.getenv('CREATE_ALLURE_REPORT', True)
 ALLURE_REPORT_PATH = get_browser_name(browser=BROWSER, current_directory=CURRENT_DIRECTORY)
+print(ALLURE_REPORT_PATH)
