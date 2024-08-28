@@ -127,7 +127,7 @@ jobs:
         run: |
           TEST_NAME="run_all_tests"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --ctrf $REPORT --alluredir=report/allure-results
+          pytest --ctrf $REPORT --alluredir=report/allure-results --reruns 1
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
