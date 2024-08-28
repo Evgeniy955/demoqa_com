@@ -48,3 +48,5 @@ else:
         os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
 BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
 CREATE_ALLURE_REPORT = os.getenv('CREATE_ALLURE_REPORT', True)
+print(CURRENT_DIRECTORY)
+os.system(f'echo PARTH {CURRENT_DIRECTORY}')
