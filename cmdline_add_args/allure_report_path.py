@@ -2,6 +2,10 @@ import os
 import platform
 
 
+def get_project_name():
+    project_name = os.getenv('PROJECT_NAME', 'Unknown Project')
+    return project_name
+
 def get(key, default=None):
     var = os.environ.get(key=key, default=default)
     if isinstance(var, str):
@@ -25,6 +29,7 @@ def get_os_type():
 
 
 current_os = get_os_type()
+project_name = get_project_name()
 
 
 def get_browser_name(browser, current_directory):
@@ -47,7 +52,7 @@ elif current_os == "Darwin":
     CURRENT_DIRECTORY = os.path.dirname(
         os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
 else:
-    target_directory = "/home/runner/work/demoqa_com/demoqa_com"
+    target_directory = f"/home/runner/work/{project_name}/{project_name}"
     os.chdir(target_directory)
     CURRENT_DIRECTORY = target_directory
 
