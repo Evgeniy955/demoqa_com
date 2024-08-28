@@ -32,6 +32,8 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: demoqa_com
 
     strategy:
       max-parallel: 1
