@@ -139,6 +139,9 @@ jobs:
           name: allure-results
           path: allure-results/rep
           retention-days: 1
+        continue-on-error: true
+      - name: Check Allure Results Directory
+        run: ls -la allure-results/rep
 
   generate-report:
     runs-on: ubuntu-latest
