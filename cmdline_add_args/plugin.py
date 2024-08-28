@@ -2,7 +2,8 @@
 
 import pytest
 
-from cmdline_add_args.allure_report_path import  CREATE_ALLURE_REPORT, ALLURE_REPORT_PATH
+from cmdline_add_args.allure_report_path import ALLURE_REPORT_PATH
+from config.env import CREATE_ALLURE_REPORT
 
 
 @pytest.hookimpl(tryfirst=True)
