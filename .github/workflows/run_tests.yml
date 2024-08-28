@@ -6,7 +6,7 @@ on:
       deployment_target:
         description: Choose target
         required: true
-        default: Run all tests
+        default: alerts_page_test
         type: choice
         options:
           - check_box_test
@@ -23,6 +23,10 @@ on:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
     - cron: 00 10 * * *   # Runs at 10:00 UTC everyday
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   test:
@@ -34,8 +38,8 @@ jobs:
       matrix:
         include:
           - BROWSER: "chrome"
-          - BROWSER: "edge"
-          - BROWSER: "firefox"
+    #          - BROWSER: "edge"
+    #          - BROWSER: "firefox"
 
     steps:
       - name: Checkout repository
@@ -61,16 +65,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip uninstall -y cmdline-add-args
 
 
       - name: check box test
         if: "github.event.inputs.deployment_target == 'check_box_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          CREATE_ALLURE_REPORT: true
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "check_box_test" --ctrf $REPORT
+          pytest -m "check_box_test" --ctrf $REPORT --alluredir=report/allure-results
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -78,10 +84,11 @@ jobs:
         if: "github.event.inputs.deployment_target == 'alerts_page_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          CREATE_ALLURE_REPORT: true
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "alerts_page_test" --ctrf $REPORT
+          pytest -m "alerts_page_test" --ctrf $REPORT --alluredir=report/allure-results
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -89,10 +96,11 @@ jobs:
         if: "github.event.inputs.deployment_target == 'practice_form_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          CREATE_ALLURE_REPORT: true
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "practice_form_test" --ctrf $REPORT || true
+          pytest -m "practice_form_test" --ctrf $REPORT --alluredir=report/allure-results
           npx github-actions-ctrf $REPORT || true
         continue-on-error: true
 
@@ -100,10 +108,11 @@ jobs:
         if: "github.event.inputs.deployment_target == 'text_box_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          CREATE_ALLURE_REPORT: true
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "text_box_test" --ctrf $REPORT
+          pytest -m "text_box_test" --ctrf $REPORT --alluredir=report/allure-results
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -113,9 +122,55 @@ jobs:
         ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          CREATE_ALLURE_REPORT: true
         run: |
           TEST_NAME="run_all_tests"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --ctrf $REPORT || true 
+          pytest --ctrf $REPORT --alluredir=report/allure-results
           npx github-actions-ctrf $REPORT
         continue-on-error: true
+
+      - name: Check Allure Results Directory
+        run: ls -la report/allure-results
+        continue-on-error: true
+
+      - name: Store allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: report/allure-results
+          retention-days: 1
+        continue-on-error: true
+
+  generate-report:
+    runs-on: ubuntu-latest
+    needs: test
+    name: Generate report
+    steps:
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+      - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
+      - run: allure generate -c allure-results -o _site
+      - name: Store generated report
+        uses: actions/upload-artifact@v3
+        with:
+          name: _site
+          path: _site
+          retention-days: 1
+
+  publish-report:
+    runs-on: ubuntu-latest
+    needs: generate-report
+    name: Report publication
+    steps:
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1.2.9
