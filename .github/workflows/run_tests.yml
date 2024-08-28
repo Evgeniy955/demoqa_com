@@ -142,7 +142,7 @@ jobs:
           retention-days: 1
         continue-on-error: true
       - name: Check Allure Results Directory
-        run: ls -la allure-results
+        run: ls -la allure-results/chrome
 
   generate-report:
     runs-on: ubuntu-latest
