@@ -66,7 +66,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip uninstall -y cmdline-add-args
 
 
       - name: check box test
@@ -77,7 +76,7 @@ jobs:
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "check_box_test" --ctrf $REPORT --alluredir=report/allure-results
+          pytest -m "check_box_test" --ctrf $REPORT 
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -89,7 +88,7 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "alerts_page_test" --ctrf $REPORT --alluredir=report/allure-results
+          pytest -m "alerts_page_test" --ctrf $REPORT 
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -101,7 +100,7 @@ jobs:
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "practice_form_test" --ctrf $REPORT --alluredir=report/allure-results
+          pytest -m "practice_form_test" --ctrf $REPORT 
           npx github-actions-ctrf $REPORT || true
         continue-on-error: true
 
@@ -113,7 +112,7 @@ jobs:
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "text_box_test" --ctrf $REPORT --alluredir=report/allure-results
+          pytest -m "text_box_test" --ctrf $REPORT 
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -127,13 +126,13 @@ jobs:
         run: |
           TEST_NAME="run_all_tests"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --ctrf $REPORT --alluredir=report/allure-results || true --reruns 1
+          pytest --ctrf $REPORT || true --reruns 1
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
       - name: Check Allure Results Directory
 
-        run: ls -la report/allure-results
+        run: ls -la llure-results
         continue-on-error: true
 
       - name: Store allure results
@@ -141,7 +140,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: report/allure-results
+          path: allure-results/chrome
           retention-days: 1
         continue-on-error: true
 
