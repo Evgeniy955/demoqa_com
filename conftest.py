@@ -4,7 +4,7 @@ import pytest
 import selenium
 from selenium.common.exceptions import WebDriverException
 
-from allure_env import get_environment
+from admin.allure_env import get_environment
 from config import driver as driver_setup
 
 
