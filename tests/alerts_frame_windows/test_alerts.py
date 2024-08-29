@@ -13,6 +13,9 @@ from tests.alerts_frame_windows.pages.alerts_page import Alerts
 @allure.feature("alerts page test")
 @title('check alerts page elements')
 def test_alerts_page_elements(driver):
+    """
+    Checking elements on the alerts page
+    """
     alerts_page = Alerts(driver, 'alerts')
     alerts_page.open()
     alerts_page.check_elements_on_alerts_page(driver)
@@ -26,6 +29,9 @@ def test_alerts_page_elements(driver):
 @allure.feature("alerts page test")
 @title('check alert buttons')
 def test_click_on_alert_buttons(driver):
+    """
+    Checking that the buttons are clickable on the alerts page
+    """
     alerts_page = Alerts(driver, 'alerts')
     alerts_page.open()
     alerts_page.click_on_alert_button(driver)
