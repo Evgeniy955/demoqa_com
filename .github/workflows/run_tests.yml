@@ -14,7 +14,15 @@ on:
           - practice_form_test
           - text_box_test
           - run_all_tests
-
+      browser_type:
+        description: Browser type
+        required: true
+        default:
+        type: choice
+        options:
+          - Chrome
+          - Edge
+          - Firefox
   #  push:
   #    branches:
   #      - setup-git-actions
@@ -104,11 +112,11 @@ jobs:
 
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} == "chrome" ]]; then 
+          if [[ ${{ matrix.BROWSER }} == "chrome" && ${{ github.event.inputs.browser_type }} == "Chrome" ]]; then 
             sudo apt-get install -y google-chrome-stable
-          elif [[ ${{ matrix.BROWSER }} == "edge" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} == "edge" && ${{ github.event.inputs.browser_type }} == "Edge" ]]; then 
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ ${{ matrix.BROWSER }} == "firefox" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} == "firefox" && ${{ github.event.inputs.browser_type }} == "Firefox" ]]; then 
             sudo apt update 
             sudo apt install firefox
           fi
