@@ -4,6 +4,7 @@ import pytest
 import selenium
 from selenium.common.exceptions import WebDriverException
 
+from allure_env import get_environment
 from config import driver as driver_setup
 
 
@@ -28,3 +29,9 @@ def driver(session):
 @pytest.fixture(scope="function")
 def session():
     return {}
+
+
+@pytest.hookimpl(trylast=True)
+def pytest_sessionfinish():
+    get_environment()
+    # os.popen(f'allure serve {folder_path}')
