@@ -85,6 +85,6 @@ class SendMail:
 
 
 def send_report_to_email():
-    print("send report")
+    print("\nSend report")
     if SEND_REPORT:
         SendMail(target_path, file_to_zip).send_mail()
