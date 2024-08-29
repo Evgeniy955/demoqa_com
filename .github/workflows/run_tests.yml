@@ -41,8 +41,8 @@ jobs:
       matrix:
         include:
           - BROWSER: "chrome"
-    #          - BROWSER: "edge"
-    #          - BROWSER: "firefox"
+          - BROWSER: "edge"
+          - BROWSER: "firefox"
 
     steps:
       - name: Checkout repository
@@ -92,8 +92,6 @@ jobs:
           REPORT="report/${TEST_NAME}/ctrf-report.json"
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
-          echo "Listing contents of /home/runner/work/"
-          ls -l /home/runner/work/
         continue-on-error: true
 
       - name: practice form test
