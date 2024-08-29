@@ -13,4 +13,4 @@ def get(key, default=None):
 
 BROWSER = "chrome"  # browser name ["chrome", "edge", "firefox", "remote"]
 CREATE_ALLURE_REPORT = True
-SEND_REPORT = get('SEND_REPORT', False)
+SEND_REPORT = get('SEND_REPORT', True)
