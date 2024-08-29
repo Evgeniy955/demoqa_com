@@ -97,7 +97,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - BROWSER: ""
           - BROWSER: "chrome"
           - BROWSER: "edge"
           - BROWSER: "firefox"
@@ -113,11 +112,11 @@ jobs:
 
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} == "chrome" && ${{ github.event.inputs.browser_type }} == "Chrome" ]]; then 
+          if [[ ${{ matrix.BROWSER }} == chrome && ${{ github.event.inputs.browser_type }} == Chrome ]]; then 
             sudo apt-get install -y google-chrome-stable
-          elif [[ ${{ matrix.BROWSER }} == "" && ${{ github.event.inputs.browser_type }} == "Edge" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} == edge && ${{ github.event.inputs.browser_type }} == Edge ]]; then 
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ ${{ matrix.BROWSER }} == "firefox" && ${{ github.event.inputs.browser_type }} == "Firefox" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} == firefox && ${{ github.event.inputs.browser_type }} == Firefox ]]; then 
             sudo apt update 
             sudo apt install firefox
           fi
