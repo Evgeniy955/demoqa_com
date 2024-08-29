@@ -9,27 +9,28 @@ from email.mime.text import MIMEText
 from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY
 
 from admin.allure_env import get_os_type
-from config.env import BROWSER
+from config.env import BROWSER, SEND_REPORT
 
-folder_path = CURRENT_DIRECTORY + f'/allure-results/{BROWSER}'
+report_path = CURRENT_DIRECTORY + f'/allure-results'
 
 if get_os_type() == "Windows":
-    path = folder_path.replace("/", "\\")
+    path = report_path.replace("/", "\\")
 else:
-    path = folder_path
+    path = report_path
 
-target_path = 'C:\\Users\\Yevhen\\Desktop\\backup_original\\Archive'
-file_to_zip = 'new'
+target_path = path
+file_to_zip = BROWSER
+ADMIN_FOLDER = os.path.dirname(__file__)
 
-output_filename = 'archive2'
-output_path = "C:\\Users\\Yevhen\\Documents\\Archives"
+output_filename = f'{BROWSER} report'
+output_path = ADMIN_FOLDER
 
 # Mail settings
 from_email = "autouser_ukr@outlook.com"
 password = "zy63Xa5pf"
 to_email = "galitsyn.evgeniy955@gmail.com"
 subject = "Allure report"
-body = f"{BROWSER.capitalize()} report "
+body = f"{BROWSER.capitalize()} report"
 filename = f"{output_filename}.zip"
 
 
@@ -37,7 +38,7 @@ class SendMail:
     def __init__(self, target_path, file_to_zip):
         # Archive report
         try:
-            shutil.make_archive('C:\\Users\\Yevhen\\Documents\\Archives\\archive2', 'zip', target_path, file_to_zip)
+            shutil.make_archive(os.path.join(ADMIN_FOLDER, output_filename), 'zip', target_path, file_to_zip)
         except:
             print('pass')
 
@@ -73,8 +74,5 @@ class SendMail:
 
 
 def send_report_to_email():
-    SendMail(target_path, file_to_zip).send_mail()
-
-
-if __name__ == '__main__':
-    send_report_to_email()
+    if SEND_REPORT:
+        SendMail(target_path, file_to_zip).send_mail()
