@@ -31,7 +31,6 @@ permissions:
 
 jobs:
   download-history:
-    # if: false
     runs-on: ubuntu-latest
     name: Download history
     steps:
@@ -81,7 +80,7 @@ jobs:
     needs: download-history
     env:
       PROJECT_NAME: demoqa_com
-      CREATE_ALLURE_REPORT: true
+      CREATE_ALLURE_REPORT: false
       SEND_REPORT: true
 
     strategy:

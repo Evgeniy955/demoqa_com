@@ -44,7 +44,12 @@ class SendMail:
 
     # Attaching a file
     def attaching_a_file(self):
-        attachment = open(f"{output_path}\\{filename}", "rb")
+        attachment_file = f"{output_path}\\{filename}"
+        if get_os_type() == "Windows":
+            correct_path = attachment_file
+        else:
+            correct_path = attachment_file.replace("\\", "/")
+        attachment = open(correct_path)
         part = MIMEBase('application', 'octet-stream')
         part.set_payload(attachment.read())
         encoders.encode_base64(part)
