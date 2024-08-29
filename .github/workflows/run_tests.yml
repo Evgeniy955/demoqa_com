@@ -195,13 +195,9 @@ jobs:
           retention-days: 1
         continue-on-error: true
 
-  generate-report:
-    runs-on: ubuntu-latest
-    needs: test
-    name: Generate report
 
-    steps:
-      - uses: actions/setup-java@v3
+      - name: Generate report
+        uses: actions/setup-java@v3
         with:
           distribution: 'microsoft'
           java-version: '17'
@@ -216,12 +212,6 @@ jobs:
           path: _site
           retention-days: 1
 
-  publish-report:
-    runs-on: ubuntu-latest
-    needs: generate-report
-    name: Report publication
-
-    steps:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
       - name: Upload Pages artifact
