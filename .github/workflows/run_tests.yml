@@ -74,6 +74,7 @@ jobs:
           path:
             allure-results
           retention-days: 1
+        continue-on-error: true
 
   test:
     runs-on: ubuntu-latest
