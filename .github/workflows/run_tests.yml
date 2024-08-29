@@ -85,7 +85,7 @@ jobs:
     #      SEND_REPORT: true
 
     strategy:
-      max-parallel: 2
+      max-parallel: 1
       fail-fast: false
       matrix:
         include:
@@ -139,7 +139,7 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -n 2 -m "alerts_page_test" --ctrf $REPORT
+          pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
