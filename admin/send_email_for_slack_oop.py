@@ -49,12 +49,16 @@ class SendMail:
             correct_path = attachment_file
         else:
             correct_path = attachment_file.replace("\\", "/")
-        attachment = open(correct_path)
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload(attachment.read())
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f"attachment; filename= {filename}")
-        return part
+        try:
+            with open(correct_path, 'rb') as attachment:
+                part = MIMEBase('application', 'octet-stream')
+                part.set_payload(attachment.read())
+                encoders.encode_base64(part)
+                part.add_header('Content-Disposition', f"attachment; filename= {filename}")
+                return part
+        except UnicodeDecodeError as e:
+            print(f"Error reading file {correct_path}: {e}")
+            return None
 
     # Sending email via SMTP
     def send_mail(self):
@@ -63,7 +67,9 @@ class SendMail:
         msg['To'] = to_email
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain'))
-        msg.attach(SendMail.attaching_a_file(self))
+        attachment_part = SendMail.attaching_a_file(self)
+        if attachment_part:
+            msg.attach(attachment_part)
         try:
             with smtplib.SMTP('smtp.office365.com', 587) as server:
                 server.starttls()
