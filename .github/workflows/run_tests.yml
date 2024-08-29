@@ -90,8 +90,8 @@ jobs:
       matrix:
         include:
           - BROWSER: "chrome"
-    #          - BROWSER: "edge"
-    #          - BROWSER: "firefox"
+          - BROWSER: "edge"
+          - BROWSER: "firefox"
 
     steps:
       - name: Checkout repository
