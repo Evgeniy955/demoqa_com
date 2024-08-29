@@ -5,6 +5,7 @@ import selenium
 from selenium.common.exceptions import WebDriverException
 
 from admin.allure_env import get_environment
+from admin.send_email_for_slack_oop import send_report_to_email
 from config import driver as driver_setup
 
 
@@ -34,5 +35,6 @@ def session():
 @pytest.hookimpl(trylast=True)
 def pytest_sessionfinish():
     get_environment()
+    send_report_to_email()
     # open allure report. Local only
     # os.popen(f'allure serve {folder_path}')
