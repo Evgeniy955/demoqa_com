@@ -43,26 +43,26 @@ jobs:
           ARTIFACT_ID=$(curl -L 
           -H "Accept: application/vnd.github+json" 
           -H "X-GitHub-Api-Version: 2022-11-28" 
-          "https://api.github.com/Evgeniy955/demoqa_com/actions/artifacts?name=allure-results" 
-          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
+          "https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts?name=allure-results" 
+          | python3 -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
           &&
           curl -L 
           -H "Accept: application/vnd.github+json" 
           -H "Authorization: Bearer ${{ secrets.TOKEN }}" 
           -H "X-GitHub-Api-Version: 2022-11-28" 
-          https://api.github.com/repos/senior-tester/run-tests-demo/actions/artifacts/$ARTIFACT_ID/zip 
+          https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts/$ARTIFACT_ID/zip 
           -o artifacts.zip &&
           REPORT_ID=$(curl -L 
           -H "Accept: application/vnd.github+json" 
           -H "X-GitHub-Api-Version: 2022-11-28" 
-          "https://api.github.com/repos/senior-tester/run-tests-demo/actions/artifacts?name=github-pages" 
-          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
+          "https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts?name=github-pages" 
+          | python3 -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
           &&
           curl -L 
           -H "Accept: application/vnd.github+json" 
           -H "Authorization: Bearer ${{ secrets.TOKEN }}" 
           -H "X-GitHub-Api-Version: 2022-11-28" 
-          https://api.github.com/repos/senior-tester/run-tests-demo/actions/artifacts/$REPORT_ID/zip 
+          https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts/$REPORT_ID/zip 
           -o pages.zip
       - run: mkdir allure-results && unzip artifacts.zip -d allure-results
       - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
@@ -77,6 +77,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: download-history
     env:
       PROJECT_NAME: demoqa_com
 
@@ -114,6 +115,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
 
       - name: check box test
         if: "github.event.inputs.deployment_target == 'check_box_test'"
