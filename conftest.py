@@ -34,4 +34,5 @@ def session():
 @pytest.hookimpl(trylast=True)
 def pytest_sessionfinish():
     get_environment()
+    # open allure report. Local only
     # os.popen(f'allure serve {folder_path}')
