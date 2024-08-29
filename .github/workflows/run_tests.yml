@@ -87,10 +87,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: download-history
-    env:
-      PROJECT_NAME: demoqa_com
-      CREATE_ALLURE_REPORT: true
-      SEND_REPORT: true
 
     strategy:
       max-parallel: 1
@@ -100,6 +96,12 @@ jobs:
           - BROWSER: "chrome"
           - BROWSER: "edge"
           - BROWSER: "firefox"
+
+    env:
+      PROJECT_NAME: demoqa_com
+      CREATE_ALLURE_REPORT: true
+      SEND_REPORT: true
+      BROWSER: ${{ matrix.BROWSER }}
 
     steps:
       - name: Checkout repository
