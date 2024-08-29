@@ -19,6 +19,7 @@ on:
   #    branches:
   #      - setup-git-actions
 
+
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
     - cron: 00 10 * * *   # Runs at 10:00 UTC everyday
