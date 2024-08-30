@@ -91,11 +91,11 @@ jobs:
     strategy:
       max-parallel: 1
       fail-fast: false
-    #      matrix:
-    #        include:
-    #          - BROWSER: "chrome"
-    #          - BROWSER: "edge"
-    #          - BROWSER: "firefox"
+      matrix:
+        include:
+          - BROWSER: "chrome"
+          - BROWSER: "edge"
+          - BROWSER: "firefox"
 
     env:
       PROJECT_NAME: demoqa_com
