@@ -71,6 +71,7 @@ class Alerts(BasePage):
     @step('click prompt')
     def click_prompt(cls, driver):
         person = generated_person()
+        BasePage.scroll_into_view(driver, alerts_locators.PROMPT_BUTTON)
         cls.find_current_element(driver, alerts_locators.PROMPT_BUTTON).click()
         alert = driver.switch_to.alert
         name = person.first_name
