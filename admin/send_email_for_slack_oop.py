@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY
 
 from admin.allure_env import get_os_type
-from config.env import BROWSER
+from config.env import BROWSER, SEND_REPORT
 
 report_path = CURRENT_DIRECTORY + f'/allure-results'
 
@@ -87,4 +87,5 @@ class SendMail:
 def send_report_to_email():
     print("\nSend report")
     print(f"\n{BROWSER}")
-    SendMail(target_path, file_to_zip).send_mail()
+    if SEND_REPORT:
+        SendMail(target_path, file_to_zip).send_mail()
