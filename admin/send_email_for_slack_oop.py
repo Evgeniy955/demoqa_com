@@ -26,8 +26,8 @@ output_filename = f'{BROWSER} report'
 output_path = ADMIN_FOLDER
 
 # Mail settings
-from_email = "galitsyn.evgeniy955@gmail.com"
-password = "zy63Xa5pf"
+from_email = "galitsyn.evgeniy@gmail.com"
+password = 'Ld8Z#"@K98'
 to_email = "galitsyn.evgeniy955@gmail.com"
 subject = "Allure report"
 body = f"{BROWSER} report"
