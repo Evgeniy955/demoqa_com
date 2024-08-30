@@ -20,9 +20,9 @@ on:
         default:
         type: choice
         options:
-          - Chrome
-          - Edge
-          - Firefox
+          - chrome
+          - edge
+          - firefox
   #  push:
   #    branches:
   #      - setup-git-actions
@@ -93,9 +93,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - BROWSER: "Chrome"
-          - BROWSER: "Edge"
-          - BROWSER: "Firefox"
+          - BROWSER: "chrome"
+          - BROWSER: "edge"
+          - BROWSER: "firefox"
 
     env:
       PROJECT_NAME: demoqa_com
@@ -114,11 +114,11 @@ jobs:
 
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "Chrome" ]]; then 
+          if [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "chrome" ]]; then 
             sudo apt-get install -y google-chrome-stable
-          elif [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "Edge" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "edge" ]]; then 
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "Firefox" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "firefox" ]]; then 
             sudo apt update 
             sudo apt install firefox
           fi
