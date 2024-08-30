@@ -94,8 +94,11 @@ jobs:
       matrix:
         include:
           - BROWSER: "chrome"
+            if: github.event.inputs.browser_type == chrome
           - BROWSER: "edge"
+            if: github.event.inputs.browser_type == edge
           - BROWSER: "firefox"
+            if: github.event.inputs.browser_type == firefox
 
     env:
       PROJECT_NAME: demoqa_com
