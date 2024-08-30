@@ -20,9 +20,9 @@ on:
         default:
         type: choice
         options:
-          - Chrome
-          - Edge
-          - Firefox
+          - chrome
+          - edge
+          - firefox
   #  push:
   #    branches:
   #      - setup-git-actions
@@ -115,14 +115,15 @@ jobs:
           echo "Invalid browser type selected: ${{ github.event.inputs.browser_type }} for ${{ matrix.BROWSER }}"
           exit 1
           fi
+        continue-on-error: true
 
       - name: Install browser
         run: |
-          if [[ "${{ matrix.BROWSER }}" == "chrome" && "${{ github.event.inputs.browser_type }}" == "Chrome" ]]; then
+          if [[ "${{ matrix.BROWSER }}" == "chrome" && "${{ github.event.inputs.browser_type }}" == "chrome" ]]; then
             sudo apt-get install -y google-chrome-stable
-          elif [[ "${{ matrix.BROWSER }}" == "edge" && "${{ github.event.inputs.browser_type }}" == "Edge" ]]; then
+          elif [[ "${{ matrix.BROWSER }}" == "edge" && "${{ github.event.inputs.browser_type }}" == "edge" ]]; then
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ "${{ matrix.BROWSER }}" == "firefox" && "${{ github.event.inputs.browser_type }}" == "Firefox" ]]; then
+          elif [[ "${{ matrix.BROWSER }}" == "firefox" && "${{ github.event.inputs.browser_type }}" == "firefox" ]]; then
             sudo apt update
             sudo apt install firefox
           fi
