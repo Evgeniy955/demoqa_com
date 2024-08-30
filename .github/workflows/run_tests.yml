@@ -100,7 +100,7 @@ jobs:
           - BROWSER: "firefox"
         exclude:
           - BROWSER: "firefox"
-            if: github.event.inputs.browser_type == chrome
+            if: github.event.inputs.browser_type == 'chrome'
 
     env:
       PROJECT_NAME: demoqa_com
