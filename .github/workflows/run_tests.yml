@@ -196,7 +196,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/${{ matrix.BROWSER }}
+          path: allure-results/${{ github.event.inputs.browser_type }}
           retention-days: 1
         continue-on-error: true
 
