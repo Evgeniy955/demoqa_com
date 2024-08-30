@@ -140,7 +140,7 @@ jobs:
         continue-on-error: true
 
       - name: alerts page test
-        if: matrix.BROWSER == 'chrome' && github.event.inputs.deployment_target == 'alerts_page_test'
+        if: github.event.inputs.deployment_target == 'alerts_page_test'
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         #          BROWSER: ${{ matrix.BROWSER }}
