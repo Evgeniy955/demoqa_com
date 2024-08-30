@@ -115,7 +115,6 @@ jobs:
           echo "Invalid browser type selected: ${{ github.event.inputs.browser_type }} for ${{ matrix.BROWSER }}"
           exit 1
           fi
-        continue-on-error: true
 
       - name: Install browser
         run: |
