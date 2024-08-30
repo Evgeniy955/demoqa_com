@@ -56,6 +56,6 @@ else:
     os.chdir(target_directory)
     CURRENT_DIRECTORY = target_directory
 
-BROWSER = get("BROWSER", "chrome")  # browser name ["chrome" "edge", "firefox", "remote"]
-CREATE_ALLURE_REPORT = os.getenv('CREATE_ALLURE_REPORT', True)
+BROWSER = get("BROWSER", None)  # browser name ["chrome" "edge", "firefox", "remote"]
+CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
 print("Current_folder: ", CURRENT_DIRECTORY)
