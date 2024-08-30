@@ -92,7 +92,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        BROWSER: [ Chrome, Edge, Firefox ]
+        BROWSER: [ chrome, edge, firefox ]
 
     env:
       PROJECT_NAME: demoqa_com
@@ -202,7 +202,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/${{ github.event.inputs.browser_type }}
+          path: allure-results/${{ matrix.BROWSER }}
           retention-days: 1
         continue-on-error: true
 
