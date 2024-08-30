@@ -98,7 +98,9 @@ jobs:
           - BROWSER: "edge"
             if: github.event.inputs.browser_type == edge
           - BROWSER: "firefox"
-            if: github.event.inputs.browser_type == firefox
+        exclude:
+          - BROWSER: "firefox"
+            if: github.event.inputs.browser_type == chrome
 
     env:
       PROJECT_NAME: demoqa_com
