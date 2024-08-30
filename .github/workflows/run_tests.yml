@@ -101,7 +101,7 @@ jobs:
       PROJECT_NAME: demoqa_com
       CREATE_ALLURE_REPORT: true
       SEND_REPORT: true
-      BROWSER: ${{ matrix.BROWSER }}
+      BROWSER: ${{ github.event.inputs.browser_type }}
 
     steps:
       - name: Checkout repository
