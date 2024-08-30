@@ -104,7 +104,7 @@ jobs:
       PROJECT_NAME: demoqa_com
       CREATE_ALLURE_REPORT: true
       SEND_REPORT: true
-      BROWSER: ${{ github.event.inputs.browser_type }}
+    #      BROWSER: ${{ matrix.BROWSER }}
 
     steps:
       - name: Checkout repository
@@ -149,6 +149,7 @@ jobs:
         if: matrix.BROWSER == 'chrome' && github.event.inputs.deployment_target == 'alerts_page_test'
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
