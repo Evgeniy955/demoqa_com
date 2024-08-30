@@ -196,7 +196,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/chrome
+          path: allure-results/${{ matrix.BROWSER }}
           retention-days: 1
         continue-on-error: true
 
