@@ -30,7 +30,7 @@ from_email = "autouser_ukr@outlook.com"
 password = "zy63Xa5pf"
 to_email = "galitsyn.evgeniy955@gmail.com"
 subject = "Allure report"
-body = f"{BROWSER.capitalize()} report"
+body = f"{BROWSER} report"
 filename = f"{output_filename}.zip"
 
 
