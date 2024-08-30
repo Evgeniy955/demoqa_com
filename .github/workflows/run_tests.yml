@@ -92,7 +92,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        BROWSER: [ chrome, edge, firefox ]
+        BROWSER: [ Chrome, Edge, Firefox ]
 
     env:
       PROJECT_NAME: demoqa_com
