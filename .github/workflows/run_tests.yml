@@ -117,11 +117,11 @@ jobs:
 
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "chrome" ]]; then 
+          if [[ ${{ matrix.BROWSER }} == "chrome" ]]; then 
             sudo apt-get install -y google-chrome-stable
-          elif [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "edge" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} == "edge" ]]; then 
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ ${{ matrix.BROWSER }} && ${{ github.event.inputs.browser_type }} == "firefox" ]]; then 
+          elif [[ ${{ matrix.BROWSER }} == "firefox" ]]; then 
             sudo apt update 
             sudo apt install firefox
           fi
@@ -146,7 +146,7 @@ jobs:
         continue-on-error: true
 
       - name: alerts page test
-        if: "github.event.inputs.deployment_target == 'alerts_page_test'"
+        if: matrix.BROWSER == 'chrome' && github.event.inputs.deployment_target == 'alerts_page_test'
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: |
