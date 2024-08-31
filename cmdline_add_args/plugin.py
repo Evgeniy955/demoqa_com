@@ -3,7 +3,7 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY, CREATE_ALLURE_REPORT, BROWSER, get_browser_name
+from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY, CREATE_ALLURE_REPORT, get_browser_name, get
 
 
 @pytest.hookimpl(tryfirst=True)
@@ -19,7 +19,7 @@ def pytest_load_initial_conftests(args):
         print(f"Environment file {env_path} not found.")
 
     create_allure_report = str(os.getenv('CREATE_ALLURE_REPORT', CREATE_ALLURE_REPORT)).lower() == 'true'
-    browser = os.getenv('BROWSER', BROWSER).lower()
+    browser = get('BROWSER', "chrome").lower()
     allure_report_path = get_browser_name(browser=browser, current_directory=CURRENT_DIRECTORY)
 
     if create_allure_report:
