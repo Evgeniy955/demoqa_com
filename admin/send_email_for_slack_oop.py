@@ -26,11 +26,11 @@ output_filename = f'{BROWSER} report'
 output_path = ADMIN_FOLDER
 
 # Mail settings
-from_email = "autouser_ukr@outlook.com"
+from_email = "halitsyn.evhen@outlook.com"
 password = "zy63Xa5pf"
 to_email = "galitsyn.evgeniy955@gmail.com"
 subject = "Allure report"
-body = f"{BROWSER.capitalize()} report"
+body = f"{BROWSER} report"
 filename = f"{output_filename}.zip"
 
 
@@ -86,5 +86,6 @@ class SendMail:
 
 def send_report_to_email():
     print("\nSend report")
+    print(f"\n{BROWSER}")
     if SEND_REPORT:
         SendMail(target_path, file_to_zip).send_mail()

@@ -52,6 +52,7 @@ class Alerts(BasePage):
     @classmethod
     @step('click confirm button')
     def click_confirm_button(cls, driver):
+        cls.find_current_element(driver, alerts_locators.CONFIRM_BUTTON).location_once_scrolled_into_view
         cls.find_current_element(driver, alerts_locators.CONFIRM_BUTTON).click()
         alert = driver.switch_to.alert
         assert alert.text == "Do you confirm action?"
@@ -71,6 +72,7 @@ class Alerts(BasePage):
     @step('click prompt')
     def click_prompt(cls, driver):
         person = generated_person()
+        cls.find_current_element(driver, alerts_locators.PROMPT_BUTTON).location_once_scrolled_into_view
         cls.find_current_element(driver, alerts_locators.PROMPT_BUTTON).click()
         alert = driver.switch_to.alert
         name = person.first_name

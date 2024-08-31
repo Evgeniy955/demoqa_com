@@ -14,7 +14,15 @@ on:
           - practice_form_test
           - text_box_test
           - run_all_tests
-
+      browser_type:
+        description: Browser type
+        required: true
+        default:
+        type: choice
+        options:
+          - chrome
+          - edge
+          - firefox
   #  push:
   #    branches:
   #      - setup-git-actions
@@ -78,19 +86,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: download-history
-    env:
-      PROJECT_NAME: demoqa_com
-      CREATE_ALLURE_REPORT: true
-      SEND_REPORT: true
 
     strategy:
       max-parallel: 1
       fail-fast: false
       matrix:
-        include:
-          - BROWSER: "chrome"
-          - BROWSER: "edge"
-          - BROWSER: "firefox"
+        BROWSER: [ chrome, edge, firefox ]
+
+    env:
+      PROJECT_NAME: demoqa_com
+      CREATE_ALLURE_REPORT: true
+      SEND_REPORT: true
 
     steps:
       - name: Checkout repository
@@ -101,14 +107,21 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Validate browser type
+        run: |
+          if [[ "${{ matrix.BROWSER }}" != "${{ github.event.inputs.browser_type }}" ]]; then
+          echo "Invalid browser type selected: ${{ github.event.inputs.browser_type }} for ${{ matrix.BROWSER }}"
+          exit 1
+          fi
+
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} == "chrome" ]]; then 
+          if [[ "${{ matrix.BROWSER }}" == "chrome" && "${{ github.event.inputs.browser_type }}" == "chrome" ]]; then
             sudo apt-get install -y google-chrome-stable
-          elif [[ ${{ matrix.BROWSER }} == "edge" ]]; then 
+          elif [[ "${{ matrix.BROWSER }}" == "edge" && "${{ github.event.inputs.browser_type }}" == "edge" ]]; then
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ ${{ matrix.BROWSER }} == "firefox" ]]; then 
-            sudo apt update 
+          elif [[ "${{ matrix.BROWSER }}" == "firefox" && "${{ github.event.inputs.browser_type }}" == "firefox" ]]; then
+            sudo apt update
             sudo apt install firefox
           fi
 
@@ -132,14 +145,16 @@ jobs:
         continue-on-error: true
 
       - name: alerts page test
-        if: "github.event.inputs.deployment_target == 'alerts_page_test'"
+        if: matrix.BROWSER == github.event.inputs.browser_type && github.event.inputs.deployment_target == 'alerts_page_test'
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
+          echo ${{ matrix.BROWSER }}
         continue-on-error: true
 
       - name: practice form test
@@ -185,7 +200,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/chrome
+          path: allure-results/${{ github.event.inputs.browser_type }}
           retention-days: 1
         continue-on-error: true
 
@@ -194,6 +209,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     name: Generate report
+    if: always()
 
     steps:
       - uses: actions/setup-java@v3
@@ -215,6 +231,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate-report
     name: Report publication
+    if: always()
 
     steps:
       - name: Download all workflow run artifacts
