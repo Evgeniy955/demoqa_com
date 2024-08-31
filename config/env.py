@@ -11,6 +11,6 @@ def get(key, default=None):
     return var
 
 
-BROWSER = 'chrome'  # browser name ["chrome", "edge", "firefox", "remote"]
-SEND_REPORT: bool = get('SEND_REPORT', default=True)
-CREATE_ALLURE_REPORT = True
+BROWSER = 'firefox'  # browser name ["chrome", "edge", "firefox", "remote"]
+CREATE_ALLURE_REPORT = False
+SEND_REPORT = os.getenv('SEND_REPORT', False)
