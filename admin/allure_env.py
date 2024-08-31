@@ -35,4 +35,4 @@ def get_environment():
         file.write('os_platform = linux'
                    f'\nos_browser = {BROWSER}'
                    f'\ndate = {time_now}')
-    print("Env added")
+    print("environment.properties file added")
