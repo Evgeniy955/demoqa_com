@@ -149,7 +149,7 @@ jobs:
         if: matrix.BROWSER == github.event.inputs.browser_type && github.event.inputs.deployment_target == 'alerts_page_test'
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
-          BROWSER: ${{ github.event.inputs.browser_type }}
+        #          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
