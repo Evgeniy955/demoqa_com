@@ -124,9 +124,8 @@ jobs:
           elif [[ "${{ matrix.BROWSER }}" == "edge" ]]; then
             sudo apt update && sudo apt install -y microsoft-edge-stable
           elif [[ "${{ matrix.BROWSER }}" == "firefox" ]]; then
-            sudo add-apt-repository ppa:mozillateam/ppa
-            sudo apt-get update
-            sudo apt-get install -y firefox=127.0+build1-0ubuntu0.20.04.1
+            sudo apt update
+            sudo apt install -y firefox || true
           fi
 
       - name: install dependencies
