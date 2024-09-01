@@ -48,7 +48,7 @@ def get_browser_name(browser, current_directory):
 
 if current_os == "Windows":
     CURRENT_DIRECTORY = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
-elif current_os == "Darwin":
+elif current_os == "macOS":
     CURRENT_DIRECTORY = os.path.dirname(
         os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
 else:
