@@ -25,7 +25,7 @@ on:
           - firefox
   push:
     branches:
-      - fix-allure-results
+      - fix-all-tests
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
