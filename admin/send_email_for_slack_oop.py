@@ -86,7 +86,7 @@ class SendMail:
 
 def send_report_to_email():
     print("\nSend report")
-    print(f"\n{BROWSER}")
+    print("Slack zip: ", filename)
     if SEND_REPORT:
         SendMail(target_path, file_to_zip).send_mail()
         print("Slack zip: ", filename)
