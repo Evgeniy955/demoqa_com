@@ -127,6 +127,8 @@ jobs:
           elif [[ "${{ matrix.BROWSER }}" == "firefox" ]]; then
             sudo apt update
             sudo apt install -y firefox || true
+          elif [[ "${{ matrix.BROWSER }}" == "safari" ]]; then
+            sudo apt-get install -y safaridriver
           fi
 
       - name: install dependencies
