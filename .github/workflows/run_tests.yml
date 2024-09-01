@@ -127,6 +127,7 @@ jobs:
             sudo apt update
             sudo apt install -y firefox || true
             sudo rm /snap/bin/geckodriver
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep 'tag_name' | cut -d\" -f4)
             wget https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-linux64.tar.gz
             tar -xvzf geckodriver-linux64.tar.gz
             sudo mv geckodriver /usr/local/bin/
