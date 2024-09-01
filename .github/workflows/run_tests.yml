@@ -126,6 +126,11 @@ jobs:
           elif [[ "${{ matrix.BROWSER }}" == "firefox" ]]; then
             sudo apt update
             sudo apt install firefox
+            sudo rm /snap/bin/geckodriver
+            wget https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-linux64.tar.gz
+            tar -xvzf geckodriver-linux64.tar.gz
+            sudo mv geckodriver /usr/local/bin/
+            which geckodriver
           fi
 
       - name: install dependencies

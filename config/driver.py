@@ -38,7 +38,7 @@ class Driver:
     def start(self):
         if BROWSER in ["chrome", "edge", "firefox"]:
             driver: WebDriver = browsers[BROWSER](options=self.options)
-            # driver.maximize_window()
+            driver.maximize_window()
         else:
             driver = None
         return driver

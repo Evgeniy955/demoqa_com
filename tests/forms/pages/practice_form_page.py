@@ -1,4 +1,5 @@
 import os
+from time import sleep
 
 import allure
 from allure import step
@@ -25,11 +26,12 @@ class FormPage(BasePage):
         subject = cls.find_current_element(driver, practice_form_locators.SUBJECT)
         subject.send_keys(person.subject)
         subject.send_keys(Keys.RETURN)
+        # cls.find_current_element(driver, practice_form_locators.CLOSE_BUTTON).click()
         cls.find_current_element(driver, practice_form_locators.HOBBIES).click()
         cls.find_current_element(driver, practice_form_locators.FILE_INPUT).send_keys(path)
         os.remove(path)
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
-        cls.find_current_element(driver, practice_form_locators.SUBMIT).location_once_scrolled_into_view
+        # cls.find_current_element(driver, practice_form_locators.SUBMIT).location_once_scrolled_into_view
         with allure.step('Login to practice form'):
             cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
         return person
