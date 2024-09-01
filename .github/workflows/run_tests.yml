@@ -23,9 +23,9 @@ on:
           - chrome
           - edge
           - firefox
-  #  push:
-  #    branches:
-  #      - setup-git-actions
+  push:
+    branches:
+      - fix-allure-results
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
