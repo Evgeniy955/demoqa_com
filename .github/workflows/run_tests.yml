@@ -109,11 +109,11 @@ jobs:
 
       - name: Validate browser type
         run: |
-          if [[ "${{ matrix.BROWSER }}" != "${{ github.event.inputs.browser_type }}" ]]; then
+          if [[ ${{ github.event.inputs.browser_type }} == '' ]]; then
+          echo "All browsers were selected"
+          elif [[ "${{ matrix.BROWSER }}" != "${{ github.event.inputs.browser_type }}" ]]; then
           echo "Invalid browser type selected: ${{ github.event.inputs.browser_type }} for ${{ matrix.BROWSER }}"
           exit 1
-          elif [[ ${{ github.event.inputs.browser_type }} == '' ]]; then
-          echo "All browsers were selected"
           fi
 
       - name: Install browser
