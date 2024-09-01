@@ -36,3 +36,4 @@ def get_environment():
                    f'\nos_browser = {BROWSER}'
                    f'\ndate = {time_now}')
     print("\nenvironment.properties file added")
+    print("\n", allure_path + env_path)
