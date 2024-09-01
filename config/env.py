@@ -11,6 +11,6 @@ def get(key, default=None):
     return var
 
 
-BROWSER = get('BROWSER', 'safari')  # browser name ["chrome", "edge", "firefox"]
+BROWSER = get('BROWSER', 'chrome')  # browser name ["chrome", "edge", "firefox", safari (local only)]
 CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
 SEND_REPORT = get('SEND_REPORT', False)
