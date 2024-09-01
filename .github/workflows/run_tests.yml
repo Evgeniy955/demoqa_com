@@ -23,7 +23,6 @@ on:
           - chrome
           - edge
           - firefox
-          - safari
   push:
     branches:
       - fix-all-tests
@@ -93,7 +92,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        BROWSER: [ chrome, edge, safari, firefox ]
+        BROWSER: [ chrome, edge, firefox ]
 
     env:
       PROJECT_NAME: demoqa_com
@@ -127,9 +126,6 @@ jobs:
           elif [[ "${{ matrix.BROWSER }}" == "firefox" ]]; then
             sudo apt update
             sudo apt install -y firefox || true
-          elif [[ "${{ matrix.BROWSER }}" == "safari" ]]; then
-            sudo apt-get update
-            sudo apt-get install -y safaridriver
           fi
 
       - name: install dependencies
