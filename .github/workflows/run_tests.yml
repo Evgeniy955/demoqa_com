@@ -128,7 +128,8 @@ jobs:
             sudo apt update
             sudo apt install -y firefox || true
           elif [[ "${{ matrix.BROWSER }}" == "safari" ]]; then
-            sudo apt-get install -y safari
+            sudo apt-get update
+            sudo apt-get install -y safaridriver
           fi
 
       - name: install dependencies
