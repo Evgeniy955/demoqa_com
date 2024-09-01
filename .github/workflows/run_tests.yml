@@ -192,6 +192,16 @@ jobs:
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
+      - name: cross browser test
+        env:
+          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+        run: |
+          TEST_NAME="cross_browser_test"
+          REPORT="report/${TEST_NAME}/ctrf-report.json"
+          pytest --ctrf $REPORT || true --reruns 1
+          npx github-actions-ctrf $REPORT
+        continue-on-error: true
+
       - name: Check Allure Results Directory
         run: ls -la allure-results
         continue-on-error: true
