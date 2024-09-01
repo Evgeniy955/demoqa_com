@@ -201,6 +201,7 @@ jobs:
         if: "github.event.inputs.deployment_target == ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="cross_browser_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
