@@ -183,8 +183,7 @@ jobs:
 
 
       - name: run all tests
-        if: "github.event.inputs.deployment_target == 'run_all_tests' || github.event.inputs.deployment_target ==
-        ''"
+        if: "github.event.inputs.deployment_target == 'run_all_tests'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: |
