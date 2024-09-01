@@ -110,7 +110,7 @@ jobs:
       - name: Validate browser type
         run: |
           if [[ "${{ github.event.inputs.browser_type }}" == '' ]]; then
-          echo "All browsers were selected"
+          echo "All browsers have been selected"
           elif [[ "${{ matrix.BROWSER }}" != "${{ github.event.inputs.browser_type }}" ]]; then
           echo "Invalid browser type selected: ${{ github.event.inputs.browser_type }} for ${{ matrix.BROWSER }}"
           exit 1
@@ -118,11 +118,11 @@ jobs:
 
       - name: Install browser
         run: |
-          if [[ "${{ matrix.BROWSER }}" == "chrome" && "${{ github.event.inputs.browser_type }}" == "chrome" ]]; then
+          if [[ "${{ matrix.BROWSER }}" == "chrome" ]]; then
             sudo apt-get install -y google-chrome-stable
-          elif [[ "${{ matrix.BROWSER }}" == "edge" && "${{ github.event.inputs.browser_type }}" == "edge" ]]; then
+          elif [[ "${{ matrix.BROWSER }}" == "edge" ]]; then
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ "${{ matrix.BROWSER }}" == "firefox" && "${{ github.event.inputs.browser_type }}" == "firefox" ]]; then
+          elif [[ "${{ matrix.BROWSER }}" == "firefox" ]]; then
             sudo apt update
             sudo apt install firefox
           fi
@@ -195,6 +195,7 @@ jobs:
         continue-on-error: true
 
       - name: cross browser test
+        if: "github.event.inputs.deployment_target == ''"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
         run: |
