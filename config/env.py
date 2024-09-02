@@ -2,7 +2,7 @@ import os
 
 
 def get(key, default=None):
-    var = os.environ.get(key=key, default=default)
+    var = os.environ.get(key, default)
     if isinstance(var, str):
         if var.lower() == 'true':
             var = True
