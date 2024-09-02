@@ -108,6 +108,9 @@ jobs:
       PROJECT_NAME: demoqa_com
       CREATE_ALLURE_REPORT: true
       SEND_REPORT: ${{ github.event.inputs.send_report }}
+      FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      TO_EMAIL: ${{ secrets.TO_EMAIL }}
 
     steps:
       - name: Checkout repository
