@@ -59,8 +59,8 @@ jobs:
           https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts/$ARTIFACT_ID/zip 
           -o artifacts.zip
           
-          """The commented code is needed to save the history. 
-          Disabled because it takes a long time to load if the history is large."""
+      #          The commented code is needed to save the history.
+      #          Disabled because it takes a long time to load if the history is large.
 #          &&
 #          REPORT_ID=$(curl -L
 #          -H "Accept: application/vnd.github+json"
