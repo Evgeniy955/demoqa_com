@@ -5,7 +5,7 @@ import selenium
 from selenium.common.exceptions import WebDriverException
 
 from admin.allure_env import get_environment
-from admin.send_email_for_slack_oop import send_report_to_email
+from admin.send_email import send_report_to_email
 from config import driver as driver_setup
 from config.env import CREATE_ALLURE_REPORT
 
