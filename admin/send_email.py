@@ -88,8 +88,8 @@ class SendMail:
 
 
 def send_report_to_email():
-    print("\nSend report")
-    print("Slack zip: ", filename)
     if SEND_REPORT:
+        print("\nSend report")
+        print("Slack zip: ", filename)
         SendMail(target_path, file_to_zip).send_mail()
 

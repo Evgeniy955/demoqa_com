@@ -15,13 +15,10 @@ def get(key, default=None):
 
 # local variables
 if get_os_type() != "Windows":
-    BROWSER = get('BROWSER', 'chrome')
+    BROWSER = get('BROWSER', 'chrome')  # browser name ["chrome", "edge", "firefox", safari (local only)]
     CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
     SEND_REPORT = get('SEND_REPORT', False)
 else:
     BROWSER = "edge"
     CREATE_ALLURE_REPORT = False
     SEND_REPORT = False
-# BROWSER = get('BROWSER', 'chrome')  # browser name ["chrome", "edge", "firefox", safari (local only)]
-# CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
-# SEND_REPORT = get('SEND_REPORT', True)
