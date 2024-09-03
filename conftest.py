@@ -1,13 +1,14 @@
+import os
 from time import sleep
 
 import pytest
 import selenium
 from selenium.common.exceptions import WebDriverException
 
-from admin.allure_env import get_environment
+from admin.allure_env import get_environment, get_os_type, folder_path
 from admin.send_email import send_report_to_email
 from config import driver as driver_setup
-from config.env import CREATE_ALLURE_REPORT
+from config.env import CREATE_ALLURE_REPORT, LOCAL_RUN
 
 
 @pytest.fixture()
@@ -38,5 +39,7 @@ def pytest_sessionfinish():
     if CREATE_ALLURE_REPORT:
         get_environment()
         send_report_to_email()
-    # open allure report. Local only
-    # os.popen(f'allure serve {folder_path}')
+        if LOCAL_RUN:
+            # open allure report. Local only
+            print('local run true')
+            os.popen(f'allure serve {folder_path}')
