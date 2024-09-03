@@ -93,6 +93,9 @@ jobs:
             allure-results
           retention-days: 1
         continue-on-error: true
+      - name: Set SEND_REPORT variable
+        run: echo "SEND_REPORT=$(if [ '${{ github.event.inputs.send_report }}' == 'Send' ]; then echo 'true'; else echo 'false'; fi)" >> $GITHUB_ENV
+
 
   test:
     runs-on: ubuntu-latest
@@ -107,7 +110,7 @@ jobs:
     env:
       PROJECT_NAME: demoqa_com
       CREATE_ALLURE_REPORT: true
-      SEND_REPORT: ${{ github.event.inputs.send_report }}' == 'Send'
+      SEND_REPORT: ${{ env.SEND_REPORT }}
       FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
       PASSWORD: ${{ secrets.PASSWORD }}
       TO_EMAIL: ${{ secrets.TO_EMAIL }}
