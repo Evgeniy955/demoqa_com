@@ -94,7 +94,9 @@ jobs:
           retention-days: 1
         continue-on-error: true
       - name: Set SEND_REPORT variable
-        run: echo "SEND_REPORT=$(if [ '${{ github.event.inputs.send_report }}' == 'Send' ] || [ '${{ github.event.inputs.send_report }}' == '' ]; then echo 'true'; else echo 'false'; fi)" >> $GITHUB_ENV
+        run: echo "SEND_REPORT=$(if [ '${{ github.event.inputs.send_report }}' == 'Send' '${{ github.event.inputs.send_report }}' == '' ]; then
+          echo 'true'
+          else echo 'false'; fi)" >> $GITHUB_ENV
 
 
 
