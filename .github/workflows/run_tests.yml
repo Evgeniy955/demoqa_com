@@ -28,8 +28,8 @@ on:
         default: Don't send
         type: choice
         options:
-          - Send
-          - Don't send
+          - 'true'
+          - 'false'
   push:
     branches:
       - fix-all-tests
@@ -93,15 +93,6 @@ jobs:
             allure-results
           retention-days: 1
         continue-on-error: true
-      - name: Set SEND_REPORT variable
-        run: |
-          if [[ "${{ github.event.inputs.send_report }}" == "Send" || -z "${{ github.event.inputs.send_report }}" ]]; then
-            echo "SEND_REPORT=true" >> $GITHUB_ENV
-          else
-            echo "SEND_REPORT=false" >> $GITHUB_ENV
-          fi
-
-
 
   test:
     runs-on: ubuntu-latest
@@ -116,7 +107,7 @@ jobs:
     env:
       PROJECT_NAME: demoqa_com
       CREATE_ALLURE_REPORT: true
-      #      SEND_REPORT: ${{ env.SEND_REPORT }}
+      SEND_REPORT: ${{ env.SEND_REPORT }} || true
       FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
       PASSWORD: ${{ secrets.PASSWORD }}
       TO_EMAIL: ${{ secrets.TO_EMAIL }}
