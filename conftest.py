@@ -41,5 +41,4 @@ def pytest_sessionfinish():
         send_report_to_email()
         if LOCAL_RUN:
             # open allure report. Local only
-            print('local run true')
             os.popen(f'allure serve {folder_path}')

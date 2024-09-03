@@ -30,9 +30,9 @@ on:
         options:
           - 'true'
           - 'false'
-  push:
-    branches:
-      - fix-all-tests
+#  push:
+#    branches:
+#      - fix-all-tests
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
