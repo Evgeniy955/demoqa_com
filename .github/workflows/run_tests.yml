@@ -107,7 +107,7 @@ jobs:
     env:
       PROJECT_NAME: demoqa_com
       CREATE_ALLURE_REPORT: true
-      SEND_REPORT: ${{ github.event.inputs.SEND_REPORT }} || true
+      SEND_REPORT: ${{ github.event.inputs.SEND_REPORT != '' && github.event.inputs.SEND_REPORT || 'true' }}
       FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
       PASSWORD: ${{ secrets.PASSWORD }}
       TO_EMAIL: ${{ secrets.TO_EMAIL }}
