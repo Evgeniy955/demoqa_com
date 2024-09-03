@@ -95,10 +95,11 @@ jobs:
         continue-on-error: true
       - name: Set SEND_REPORT variable
         run: |
-          echo "SEND_REPORT=$(if [[ '${{ github.event.inputs.send_report }}' == 'Send' '${{ github.event.inputs.send_report }}' == '' ]]; then
-          echo 'true'
-          else echo 'false' 
-          fi)" >> $GITHUB_ENV
+          if [[ "${{ github.event.inputs.send_report }}" == "Send" || -z "${{ github.event.inputs.send_report }}" ]]; then
+            echo "SEND_REPORT=true" >> $GITHUB_ENV
+          else
+            echo "SEND_REPORT=false" >> $GITHUB_ENV
+          fi
 
 
 
