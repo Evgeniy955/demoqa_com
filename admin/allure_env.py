@@ -19,16 +19,21 @@ def get_os_type():
 
 
 folder_path = CURRENT_DIRECTORY + f'/allure-results/{BROWSER}'
+env_property_path = '/environment.properties'
 
 if get_os_type() == "Windows":
-    path = folder_path.replace("/", "\\")
+    allure_path = folder_path.replace("/", "\\")
+    env_path = env_property_path.replace("/", "\\")
 else:
-    path = folder_path
+    allure_path = folder_path
+    env_path = env_property_path
 
 def get_environment():
     today = datetime.now()
     time_now = today.strftime("%Y/%m/%d %H:%M:%S")
-    with open(path + '/environment.properties', 'w') as file:
+    with open(allure_path + env_path, 'w') as file:
         file.write('os_platform = linux'
                    f'\nos_browser = {BROWSER}'
                    f'\ndate = {time_now}')
+    print("\nenvironment.properties file added")
+    print("\n", allure_path + env_path)

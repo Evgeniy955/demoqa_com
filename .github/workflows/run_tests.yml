@@ -14,14 +14,28 @@ on:
           - practice_form_test
           - text_box_test
           - run_all_tests
-
-  #  push:
-  #    branches:
-  #      - setup-git-actions
+      browser_type:
+        description: Browser type
+        required: true
+        default: chrome
+        type: choice
+        options:
+          - chrome
+          - edge
+      send_report:
+        description: Send report
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+  push:
+    branches:
+      - fix-all-tests
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
-    - cron: 00 10 * * *   # Runs at 10:00 UTC everyday
 
 permissions:
   contents: read
@@ -50,21 +64,22 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.TOKEN }}" 
           -H "X-GitHub-Api-Version: 2022-11-28" 
           https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts/$ARTIFACT_ID/zip 
-          -o artifacts.zip &&
+          -o artifact_id.zip
+          &&
           REPORT_ID=$(curl -L
           -H "Accept: application/vnd.github+json"
           -H "X-GitHub-Api-Version: 2022-11-28"
           "https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts?name=github-pages"
-          | python3 -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
+          | python3 -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);")
           &&
           curl -L
           -H "Accept: application/vnd.github+json"
           -H "Authorization: Bearer ${{ secrets.TOKEN }}"
           -H "X-GitHub-Api-Version: 2022-11-28"
-          https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts/$REPORT_ID/zip 
-          -o pages.zip
-      - run: mkdir allure-results && unzip artifacts.zip -d allure-results
-      - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
+          https://api.github.com/repos/Evgeniy955/demoqa_com/actions/artifacts/$REPORT_ID/zip
+          -o history_pages.zip
+      - run: mkdir allure-results && unzip artifact_id.zip -d allure-results
+      - run: mkdir old_pages pages_history && unzip history_pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
       - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results
       - name: Store allure history
         uses: actions/upload-artifact@v3
@@ -78,19 +93,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: download-history
-    env:
-      PROJECT_NAME: demoqa_com
-      CREATE_ALLURE_REPORT: true
-      SEND_REPORT: true
 
     strategy:
       max-parallel: 1
       fail-fast: false
       matrix:
-        include:
-          - BROWSER: "chrome"
-          - BROWSER: "edge"
-          - BROWSER: "firefox"
+        BROWSER: [ chrome, edge ]
+
+    env:
+      PROJECT_NAME: demoqa_com
+      CREATE_ALLURE_REPORT: true
+      SEND_REPORT: ${{ github.event.inputs.SEND_REPORT != '' && github.event.inputs.SEND_REPORT || 'true' }}
+      FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      TO_EMAIL: ${{ secrets.TO_EMAIL }}
+      LOCAL_RUN: false
 
     steps:
       - name: Checkout repository
@@ -101,15 +118,24 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Validate browser type
+        run: |
+          if [[ "${{ github.event.inputs.browser_type }}" == '' ]]; then
+          echo "All browsers have been selected"
+          elif [[ "${{ matrix.BROWSER }}" != "${{ github.event.inputs.browser_type }}" ]]; then
+          echo "Invalid browser type selected: ${{ github.event.inputs.browser_type }} for ${{ matrix.BROWSER }}"
+          exit 1
+          fi
+
       - name: Install browser
         run: |
-          if [[ ${{ matrix.BROWSER }} == "chrome" ]]; then 
+          if [[ "${{ matrix.BROWSER }}" == "chrome" ]]; then
             sudo apt-get install -y google-chrome-stable
-          elif [[ ${{ matrix.BROWSER }} == "edge" ]]; then 
+          elif [[ "${{ matrix.BROWSER }}" == "edge" ]]; then
             sudo apt update && sudo apt install -y microsoft-edge-stable
-          elif [[ ${{ matrix.BROWSER }} == "firefox" ]]; then 
-            sudo apt update 
-            sudo apt install firefox
+          elif [[ "${{ matrix.BROWSER }}" == "firefox" ]]; then
+            sudo apt update
+            sudo apt install -y firefox
           fi
 
       - name: install dependencies
@@ -124,6 +150,7 @@ jobs:
         if: "github.event.inputs.deployment_target == 'check_box_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
@@ -132,20 +159,23 @@ jobs:
         continue-on-error: true
 
       - name: alerts page test
-        if: "github.event.inputs.deployment_target == 'alerts_page_test'"
+        if: matrix.BROWSER == github.event.inputs.browser_type && github.event.inputs.deployment_target == 'alerts_page_test'
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
           pytest -m "alerts_page_test" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
+          echo ${{ matrix.BROWSER }}
         continue-on-error: true
 
       - name: practice form test
         if: "github.event.inputs.deployment_target == 'practice_form_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
@@ -157,6 +187,7 @@ jobs:
         if: "github.event.inputs.deployment_target == 'text_box_test'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
@@ -164,14 +195,25 @@ jobs:
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
-
       - name: run all tests
-        if: "github.event.inputs.deployment_target == 'run_all_tests' || github.event.inputs.deployment_target ==
-        ''"
+        if: "github.event.inputs.deployment_target == 'run_all_tests'"
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ github.event.inputs.browser_type }}
         run: |
           TEST_NAME="run_all_tests"
+          REPORT="report/${TEST_NAME}/ctrf-report.json"
+          pytest --ctrf $REPORT || true --reruns 1
+          npx github-actions-ctrf $REPORT
+        continue-on-error: true
+
+      - name: cross browser test
+        if: "github.event.inputs.deployment_target == ''"
+        env:
+          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
+          BROWSER: ${{ matrix.BROWSER }}
+        run: |
+          TEST_NAME="cross_browser_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
           pytest --ctrf $REPORT || true --reruns 1
           npx github-actions-ctrf $REPORT
@@ -185,7 +227,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/chrome
+          path: allure-results/$${{ matrix.BROWSER }}
           retention-days: 1
         continue-on-error: true
 
@@ -194,6 +236,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     name: Generate report
+    if: always()
 
     steps:
       - uses: actions/setup-java@v3
@@ -215,6 +258,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate-report
     name: Report publication
+    if: always()
 
     steps:
       - name: Download all workflow run artifacts

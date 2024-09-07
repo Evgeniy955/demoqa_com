@@ -7,9 +7,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY
+from dotenv import load_dotenv
 
 from admin.allure_env import get_os_type
 from config.env import BROWSER, SEND_REPORT
+
+load_dotenv()
 
 report_path = CURRENT_DIRECTORY + f'/allure-results'
 
@@ -26,11 +29,11 @@ output_filename = f'{BROWSER} report'
 output_path = ADMIN_FOLDER
 
 # Mail settings
-from_email = "autouser_ukr@outlook.com"
-password = "zy63Xa5pf"
-to_email = "galitsyn.evgeniy955@gmail.com"
+from_email = os.getenv('FROM_EMAIL')
+password = os.getenv('PASSWORD')
+to_email = os.getenv('TO_EMAIL')
 subject = "Allure report"
-body = f"{BROWSER.capitalize()} report"
+body = f"{BROWSER} report"
 filename = f"{output_filename}.zip"
 
 
@@ -85,6 +88,8 @@ class SendMail:
 
 
 def send_report_to_email():
-    print("\nSend report")
     if SEND_REPORT:
+        print("\nSend report")
+        print("Slack zip: ", filename)
         SendMail(target_path, file_to_zip).send_mail()
+

@@ -3,3 +3,4 @@
 .idea/**/workspace.xml
 .venv/
 /tests/allure_results/
+/.env

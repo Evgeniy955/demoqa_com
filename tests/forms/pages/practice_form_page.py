@@ -1,9 +1,11 @@
 import os
+from time import sleep
 
 import allure
 from allure import step
 from selenium.webdriver import Keys
 
+from config.env import BROWSER
 from testlib.locators import practice_form_locators
 from tests.base_page import BasePage
 from utils.generator.generator import generated_person, generated_file
@@ -22,14 +24,22 @@ class FormPage(BasePage):
         cls.find_current_element(driver, practice_form_locators.EMAIL).send_keys(person.email)
         cls.find_current_element(driver, practice_form_locators.GANDER).click()
         cls.find_current_element(driver, practice_form_locators.MOBILE).send_keys(person.mobile)
+        if BROWSER == "firefox":
+            sleep(2)
         subject = cls.find_current_element(driver, practice_form_locators.SUBJECT)
+        cls.find_current_element(driver, practice_form_locators.SUBJECT).click()
+        if BROWSER == "firefox":
+            sleep(5)
         subject.send_keys(person.subject)
         subject.send_keys(Keys.RETURN)
+        if BROWSER == "firefox":
+            if not cls.find_current_element(driver, practice_form_locators.HOBBIES).is_displayed():
+                cls.find_current_element(driver, practice_form_locators.CLOSE_BUTTON).click()
         cls.find_current_element(driver, practice_form_locators.HOBBIES).click()
         cls.find_current_element(driver, practice_form_locators.FILE_INPUT).send_keys(path)
         os.remove(path)
         cls.find_current_element(driver, practice_form_locators.CURRENT_ADDRESS).send_keys(person.current_address)
-        cls.find_current_element(driver, practice_form_locators.SUBMIT).location_once_scrolled_into_view
+        # cls.find_current_element(driver, practice_form_locators.SUBMIT).location_once_scrolled_into_view
         with allure.step('Login to practice form'):
             cls.find_current_element(driver, practice_form_locators.SUBMIT).click()
         return person

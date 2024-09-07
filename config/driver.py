@@ -11,7 +11,7 @@ browsers: Dict[str, Type[WebDriver]] = {
     "chrome": webdriver.Chrome,
     "edge": webdriver.Edge,
     "firefox": webdriver.Firefox,
-    "remote": webdriver.Remote
+    "safari": webdriver.Safari
 }
 
 if BROWSER == 'chrome':
@@ -20,8 +20,8 @@ elif BROWSER == 'firefox':
     browser_options = webdriver.FirefoxOptions()
 elif BROWSER == 'edge':
     browser_options = webdriver.EdgeOptions()
-elif BROWSER == 'remote':
-    browser_options = webdriver.ChromeOptions()
+elif BROWSER == 'safari':
+    browser_options = webdriver.SafariOptions()
 
 
 class Driver:
@@ -36,9 +36,9 @@ class Driver:
             self.options.add_argument(option)
 
     def start(self):
-        if BROWSER in ["chrome", "edge", "firefox"]:
+        if BROWSER in ["chrome", "edge", "firefox", 'safari']:
             driver: WebDriver = browsers[BROWSER](options=self.options)
-            # driver.maximize_window()
+            driver.maximize_window()
         else:
             driver = None
         return driver
