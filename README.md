@@ -27,7 +27,7 @@ https://pypi.org/project/pytest-cmdline-add-args/
 
     - With Firefox problems, because there are some conflicts when installing the browser in Ubuntu
 
-### 3. Allur reports
+### 3. Allure reports
 
 1. #### Locally:
     - You need to specify in the config/env.py file:
@@ -35,7 +35,7 @@ https://pypi.org/project/pytest-cmdline-add-args/
     - If CREATE_ALLURE_REPORT = True:
         * The allure report will automatically open in the browser
 
-#### 2. Удаленно:
+#### 2. Remotely:
 
     - During automatic runs, reports are create automatically
 
