@@ -28,8 +28,8 @@ https://pypi.org/project/pytest-cmdline-add-args/
 ### 3. Аллюр отчеты
 
 1. #### Локально:
-    - Нужно указать в файле env.py в папке конфиг:
-        * CREATE_ALLURE_REPORT = False
+   - Нужно указать в файле config/env.py:
+      * CREATE_ALLURE_REPORT = True
    - Если CREATE_ALLURE_REPORT = True:
       * Аллюр отчет автоматически откроется в браузере
 
