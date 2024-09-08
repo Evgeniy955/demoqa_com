@@ -32,7 +32,7 @@ on:
           - 'false'
   push:
     branches:
-      - fix-all-tests
+      - stelth-mode
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
