@@ -30,6 +30,8 @@ class Driver:
         self.options = browser_options
 
         self.options.add_argument("--window-size=1920,1080")
+        self.options.add_argument("--disable-notifications")
+        self.options.add_argument("--disable-popup-blocking")
         # self.options.add_argument("--headless")
 
         for option in REMOTE_OPTIONS.split():
@@ -41,4 +43,5 @@ class Driver:
             driver.maximize_window()
         else:
             driver = None
+            print("Enter correct browser")
         return driver

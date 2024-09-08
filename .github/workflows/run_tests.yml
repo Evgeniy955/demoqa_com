@@ -32,7 +32,7 @@ on:
           - 'false'
   push:
     branches:
-      - fix-all-tests
+      - stelth-mode
 
   schedule:
     - cron: 30 3 * * 6   # Runs at 03:30 UTC every Saturday
@@ -227,7 +227,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results/$${{ matrix.BROWSER }}
+          path: allure-results/${{ matrix.BROWSER }}
           retention-days: 1
         continue-on-error: true
 
