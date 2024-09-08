@@ -1,6 +1,6 @@
 # The project is created on pure selenium and python+pytest
 
-### Проект написан для ресурса:
+### Для написания проекта использовался ресурс:
 
 - https://demoqa.com/
 - CI/CD - Github actions
