@@ -1,71 +1,77 @@
 # The project is created on pure selenium and python+pytest
 
-### Для написания проекта использовался ресурс:
+### The resource was used to write the project:
 
 - https://demoqa.com/
 - CI/CD - Github actions
 
 ## The project includes:
 
-### 1. Добавлен самописный модуль pytest-cmdline-add-args 1.9.5
+### 1. Added a custom module pytest-cmdline-add-args 1.9.5
 
-    - Модуль позволяет изменять аргументы командной строки до запуска тестов
-    - Модуль добавляет аргументы командной строки для получения аллюр отчетов
-    - В модуле добавлен самописный метод для загрузки системных переменных с файла env.py, 
-    что позволяет управлять модулем из самого проекта
+    - The module allows you to change the command line arguments for running tests.
+    - The module allows you to change the command line arguments for getting allure reports. 
+    - A custom method for loading system requests with the env.py file has been added to the module, 
+    which allows you to manage the module from the project itself.
 
 https://pypi.org/project/pytest-cmdline-add-args/
 
-### 2. Проект кроссбраузерный
+### 2. The project is cross-browser
 
-#### 1. Локально:
-    - На виндовз работают тесты для Chrome, Edge, Firefox
-    - На мак ОС работают тесты Chrome, Edge, Safari
+#### 1. Locally:
 
-#### 2. Удаленно работают тесты только для Chrome и Edge
-    - С Firefox проблемы, т.к. сущестуют конфликты при установке браузера на Ubuntu
+    - On Windows, tests work for Chrome, Edge, Firefox
+    - On Mac OS, tests work for Chrome, Edge, Safari
 
-### 3. Аллюр отчеты
+#### 2. Tests only work remotely for Chrome and Edge
 
-1. #### Локально:
-   - Нужно указать в файле config/env.py:
-      * CREATE_ALLURE_REPORT = True
-   - Если CREATE_ALLURE_REPORT = True:
-      * Аллюр отчет автоматически откроется в браузере
+    - With Firefox problems, because there are some conflicts when installing the browser in Ubuntu
+
+### 3. Allur reports
+
+1. #### Locally:
+    - You need to specify in the config/env.py file:
+        * CREATE_ALLURE_REPORT = True
+    - If CREATE_ALLURE_REPORT = True:
+        * The allure report will automatically open in the browser
 
 #### 2. Удаленно:
-    - Во время автоматического и ручного запуска аллюр отчеты создаются автоматически
 
-3. #### Отправка аллюр отчетов
-    - При автоматическом запуске отчеты отправляются автоматически
-    - При ручном запуске можно указать отправлять отчет или нет (локально и удаленно):
-       * Для локальной отправки нужно создать файл .env и там указать данные для отправки отчета на имейл
+    - During automatic runs, reports are create automatically
 
-### 4. Запуск тестов через гит хаб экшнс
+3. #### Sending allure reports
+    - When running automatically, reports are sent automatically.
+    - When running manually, you can specify whether to run a send report or not (locally and remotely):
+        * For local sending, you need to create a .env file and specify the data for the report to email
+
+### 4. Running tests via GitHub actions
 
 If you are going to run tests using GitHub actions, you need to specify the name of your project in workflow:
 
 env:
 #### PROJECT_NAME: project_name
 
-#### 1. Кастомизация запуска тестов
-    - Можно выбрать раздел ресурса, для которого запустятся тесты
-    - Можно выбрать браузер для запуска тестов
-    - Можно выбрать отправлять репорт на имейл или нет
+#### 1. Customizing test execution
 
-#### 2. Деплой аллюр отчетов на ресурс https://evgeniy955.github.io/demoqa_com/
-    - Отображаются все тесты что были запущены для данного проекта
-    - Сохранение истории запусков для каждого теста
-    - Сохранение повторных попыток для каждого теста
+    - You can select the resource section for which the tests will be run 
+    - You can select the browser for running the tests 
+    - You can choose whether to send the report by email or not
 
-### 5. Запуск тестов локально
+#### 2. allure report to the resource is deploying in https://evgeniy955.github.io/demoqa_com/
 
-#### 1. Кастомизация запуска тестов
-    - Выбрать конкретный тест
-        e.g. -m "C0007"
-    - Можно запустить тесты для любого раздела проекта
-    - Можно указать браузер для запуска тестов
-    - Можно указать нужно ли создавать аллюр отчет
-    - Можно указать нужно ли отправлять отчет на имейл
+    - Displays all tests that have been run for this project.
+    - Saves run history for each test.
+    - Saves retries history for each test.
 
-#### 2. Настройка запуска тестов локально в файле config/env.py
+### 5. Running tests locally
+
+#### 1. Customizing test execution
+
+    - You can run a specific test, 
+        eg. -m "C0007" 
+    - You can run tests for any section of the project 
+    - You can specify a browser to run tests 
+    - You can turn it on  or turn it off to create an allure report 
+    - You can turn on or turn off to send an allure report by email
+
+#### 2. The local run  tests setting is set in the file config/env.py
