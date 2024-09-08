@@ -20,7 +20,7 @@ if get_os_type() != "Windows":
     CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
     SEND_REPORT = get('SEND_REPORT', False)
 else:
-    BROWSER = "edge"
+    BROWSER = "chrome"
     CREATE_ALLURE_REPORT = False
     SEND_REPORT = False
 
