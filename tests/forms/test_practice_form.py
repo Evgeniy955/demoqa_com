@@ -2,7 +2,7 @@ import allure
 from allure import title
 from pytest import mark
 
-from pages.practice_form_page import FormPage
+from testlib.pages.practice_form_page import FormPage
 
 
 @mark.C0006
