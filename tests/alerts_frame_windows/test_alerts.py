@@ -2,7 +2,7 @@ import allure
 from allure import title
 from pytest import mark
 
-from tests.alerts_frame_windows.pages.alerts_page import Alerts
+from testlib.pages.alerts_page import Alerts
 
 
 @mark.C0001

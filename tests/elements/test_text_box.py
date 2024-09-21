@@ -2,7 +2,7 @@ import allure
 from allure import title
 from pytest import mark
 
-from tests.elements.pages.text_box_page import TextBox
+from testlib.pages.text_box_page import TextBox
 
 
 @mark.C0004
