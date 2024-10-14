@@ -9,7 +9,6 @@ from email.mime.text import MIMEText
 from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY
 from dotenv import load_dotenv
 
-from admin.allure_env import get_os_type
 from config.env import BROWSER, SEND_REPORT
 
 load_dotenv()
