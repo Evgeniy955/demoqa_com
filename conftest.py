@@ -5,7 +5,8 @@ import pytest
 import selenium
 from selenium.common.exceptions import WebDriverException
 
-from admin.allure_env import get_environment, get_os_type, folder_path
+from admin.allure_env import get_environment, allure_path
+from admin.logger import logger
 from admin.send_email import send_report_to_email
 from config import driver as driver_setup
 from config.env import CREATE_ALLURE_REPORT, LOCAL_RUN
@@ -36,9 +37,10 @@ def session():
 
 @pytest.hookimpl(trylast=True)
 def pytest_sessionfinish():
+    logger.info(f"CREATE_ALLURE_REPORT: {CREATE_ALLURE_REPORT}")
     if CREATE_ALLURE_REPORT:
         get_environment()
         send_report_to_email()
         if LOCAL_RUN:
             # open allure report. Local only
-            os.popen(f'allure serve {folder_path}')
+            os.popen(f'allure serve {allure_path}')

@@ -9,6 +9,7 @@ from email.mime.text import MIMEText
 from cmdline_add_args.allure_report_path import CURRENT_DIRECTORY
 from dotenv import load_dotenv
 
+from admin.logger import logger
 from config.env import BROWSER, SEND_REPORT
 
 load_dotenv()
@@ -83,10 +84,11 @@ class SendMail:
 
 
 def send_report_to_email():
+    logger.info(f"SEND REPORT: {SEND_REPORT}")
     if SEND_REPORT:
         print("\nSend report")
         print("Slack zip: ", filename)
-        SendMail(target_path, file_to_zip).send_mail()
+        SendMail(target_path, filename).send_mail()
 
 
 if __name__ == '__main__':
