@@ -4,6 +4,10 @@ from cmdline_add_args.allure_report_path import get_os_type
 
 
 def get(key, default=None):
+    """
+    Improved os.environ.get(key, default) for getting boolean values.
+    Because by default the function returns boolean values in the form str()
+    """
     var = os.environ.get(key, default)
     if isinstance(var, str):
         if var.lower() == 'true':

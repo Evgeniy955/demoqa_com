@@ -1,3 +1,4 @@
+import os.path
 import random
 
 from allure import step
@@ -32,7 +33,7 @@ def generated_person_for_text_box():
 
 @step('generated file')
 def generated_file():
-    path = get_project_path() + '\\Translation{random.randint(10, 100)}.txt'
+    path = os.path.join(get_project_path(), f'Translation{random.randint(10, 100)}.txt')
     file = open(path, 'w')
     file.write(f'Helloworld{random.randint(23, 100)}')
     file.close()
