@@ -16,7 +16,6 @@ load_dotenv()
 
 report_path = os.path.join(CURRENT_DIRECTORY, 'allure-results')
 target_path = os.path.normpath(report_path)
-file_to_zip = 'IPAD 10.6.0'
 
 output_filename = f'{BROWSER} report'
 output_path = os.path.dirname(__file__)
