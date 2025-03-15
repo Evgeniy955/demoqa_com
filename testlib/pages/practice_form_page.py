@@ -31,7 +31,7 @@ class FormPage(BasePage):
         if BROWSER == "firefox":
             sleep(5)
         subject.send_keys(person.subject)
-        subject.send_keys(Keys.RETURN)
+        subject.send_keys(Keys.ENTER)
         if BROWSER == "firefox":
             if not cls.find_current_element(driver, practice_form_locators.HOBBIES).is_displayed():
                 cls.find_current_element(driver, practice_form_locators.CLOSE_BUTTON).click()
