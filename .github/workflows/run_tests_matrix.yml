@@ -112,6 +112,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install X virtual framebuffer (Xvfb) for headless GUI support
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
       - name: Download all workflow run artifacts
         if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         uses: actions/download-artifact@v4
@@ -123,7 +129,7 @@ jobs:
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "check_box_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
+          xvfb-run -a pytest -m "check_box_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -134,7 +140,7 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "alerts_page_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
+          xvfb-run -a pytest -m "alerts_page_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
           echo ${{ matrix.BROWSER }}
         continue-on-error: true
@@ -146,7 +152,7 @@ jobs:
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "practice_form_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
+          xvfb-run -a pytest -m "practice_form_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT || true
         continue-on-error: true
 
@@ -157,7 +163,7 @@ jobs:
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "text_box_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
+          xvfb-run -a pytest -m "text_box_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -168,7 +174,7 @@ jobs:
         run: |
           TEST_NAME="run_all_tests"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT || true --reruns 1
+          xvfb-run -a pytest --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT || true --reruns 1
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -179,7 +185,7 @@ jobs:
         run: |
           TEST_NAME="cross_browser_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT || true --reruns 1
+          xvfb-run -a pytest --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT || true --reruns 1
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
