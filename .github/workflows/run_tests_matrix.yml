@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 1
+      max-parallel: 5
       fail-fast: false
       matrix:
         BROWSER: [ chrome, edge ]
