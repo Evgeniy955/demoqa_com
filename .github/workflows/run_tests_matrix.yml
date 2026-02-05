@@ -64,6 +64,7 @@ jobs:
       PASSWORD: ${{ secrets.PASSWORD }}
       TO_EMAIL: ${{ secrets.TO_EMAIL }}
       LOCAL_RUN: false
+      ALLURE_RESULTS_DIR: allure-results/${{ matrix.BROWSER }}
 
     steps:
       - name: Checkout repository
@@ -73,6 +74,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+
+      - name: Prepare Allure results directory
+        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        run: |
+          mkdir -p "${{ env.ALLURE_RESULTS_DIR }}"
 
       - name: Validate browser type
         if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
@@ -114,7 +120,7 @@ jobs:
         run: |
           TEST_NAME="check_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "check_box_test" --ctrf $REPORT
+          pytest -m "check_box_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -126,7 +132,7 @@ jobs:
         run: |
           TEST_NAME="alerts_page_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "alerts_page_test" --ctrf $REPORT
+          pytest -m "alerts_page_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
           echo ${{ matrix.BROWSER }}
         continue-on-error: true
@@ -139,7 +145,7 @@ jobs:
         run: |
           TEST_NAME="practice_form_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "practice_form_test" --ctrf $REPORT
+          pytest -m "practice_form_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT || true
         continue-on-error: true
 
@@ -151,7 +157,7 @@ jobs:
         run: |
           TEST_NAME="text_box_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest -m "text_box_test" --ctrf $REPORT
+          pytest -m "text_box_test" --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -163,7 +169,7 @@ jobs:
         run: |
           TEST_NAME="run_all_tests"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --ctrf $REPORT || true --reruns 1
+          pytest --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT || true --reruns 1
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -175,7 +181,7 @@ jobs:
         run: |
           TEST_NAME="cross_browser_test"
           REPORT="report/${TEST_NAME}/ctrf-report.json"
-          pytest --ctrf $REPORT || true --reruns 1
+          pytest --alluredir "${{ env.ALLURE_RESULTS_DIR }}" --ctrf $REPORT || true --reruns 1
           npx github-actions-ctrf $REPORT
         continue-on-error: true
 
@@ -190,7 +196,7 @@ jobs:
         with:
           # make artifact name unique per workflow run using run_id
           name: allure-results-${{ matrix.BROWSER }}-${{ matrix.TEST_TARGET }}-${{ github.run_id }}
-          path: allure-results/${{ matrix.BROWSER }}
+          path: ${{ env.ALLURE_RESULTS_DIR }}
           retention-days: 1
         continue-on-error: true
 
