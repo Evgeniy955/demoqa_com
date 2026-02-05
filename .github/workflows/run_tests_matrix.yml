@@ -188,7 +188,8 @@ jobs:
         if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.BROWSER }}-${{ matrix.TEST_TARGET }}
+          # make artifact name unique per workflow run using run_id
+          name: allure-results-${{ matrix.BROWSER }}-${{ matrix.TEST_TARGET }}-${{ github.run_id }}
           path: allure-results/${{ matrix.BROWSER }}
           retention-days: 1
         continue-on-error: true
@@ -208,31 +209,80 @@ jobs:
       - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
-      - name: Merge allure artifacts into single folder
+
+      - name: Merge allure artifacts and generate per-target reports
         run: |
-          mkdir -p allure-results
-          # Downloaded artifacts are extracted into folders named after the artifact name.
-          # We only copy folders that start with "allure-results-" (our uploaded artifacts).
-          shopt -s nullglob
+          set -e
+          mkdir -p merged_results
+          mkdir -p reports
+
+          # Collected artifact folders will look like: allure-results-<BROWSER>-<TEST_TARGET>-<RUN_ID>
+          shopt -s nullglob || true
+
+          # Build list of unique TEST_TARGET values from downloaded artifact folders
+          targets=()
           for d in ./allure-results-*; do
             if [ -d "$d" ]; then
-              echo "Merging $d"
-              cp -r "$d"/* allure-results/ || true
+              name=$(basename "$d")
+              # remove leading 'allure-results-'
+              rest="${name#allure-results-}"
+              # rest is now <BROWSER>-<TEST_TARGET>-<RUN_ID> (RUN_ID might be absent in older artifacts)
+              # drop the last hyphen-separated segment (run id)
+              rest_no_runid="${rest%-*}"
+              # drop the browser prefix to get TEST_TARGET (assumes browser has no '-' itself)
+              test_target="${rest_no_runid#*-}"
+              # fallback: if method failed, try to take last segment as before
+              if [ -z "$test_target" ]; then
+                test_target="${name##*-}"
+              fi
+              targets+=("$test_target")
             fi
           done
-          # Also handle any nested directories that may contain the browser folder
-          for d in ./*/allure-results/* ./allure-results/*; do
-            :
-          done || true
-      - name: Generate Allure report
-        run: |
-          ls -la allure-results || true
-          allure generate -c allure-results -o _site
-      - name: Store generated report
+
+          if [ ${#targets[@]} -eq 0 ]; then
+            echo "No allure-results-* artifacts found; nothing to generate"
+            exit 0
+          fi
+
+          # unique targets
+          IFS=$'\n' read -r -d '' -a unique_targets < <(printf "%s\n" "${targets[@]}" | sort -u && printf '\0')
+
+          for t in "${unique_targets[@]}"; do
+            echo "Preparing merged results for target: $t"
+            merged_dir="merged_results/$t"
+            mkdir -p "$merged_dir"
+
+            # copy contents of all artifacts that match this target (handle run_id suffix)
+            for s in ./allure-results-*; do
+              if [ -d "$s" ]; then
+                case "$s" in
+                  *-"$t" | *-"$t"-* )
+                    echo "Merging from $s into $merged_dir"
+                    cp -r "$s"/* "$merged_dir/" || true
+                    ;;
+                  *)
+                    ;;
+                esac
+              fi
+            done
+
+            echo "Generating Allure report for $t (merged dir: $merged_dir)"
+            out_dir="reports/$t"
+            mkdir -p "$out_dir"
+            ls -la "$merged_dir" || true
+            if [ -n "$(ls -A "$merged_dir" 2>/dev/null)" ]; then
+              allure generate -c "$merged_dir" -o "$out_dir" || true
+            else
+              echo "No results inside $merged_dir, skipping allure generate for $t"
+            fi
+          done
+
+      - name: Store generated reports
         uses: actions/upload-artifact@v4
         with:
-          name: _site
-          path: _site
+          # unique generated reports per workflow run
+          name: generated-reports-${{ github.run_id }}
+          path: reports
           retention-days: 1
 
   publish-report:
