@@ -44,6 +44,9 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  REMOTE_OPTIONS: '--headless --no-sandbox --disable-dev-shm-usage'
+
 
 jobs:
 
@@ -116,7 +119,6 @@ jobs:
       - name: check box test
         if: ${{ matrix.TEST_TARGET == 'check_box_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'check_box_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
-          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="check_box_test"
@@ -128,7 +130,6 @@ jobs:
       - name: alerts page test
         if: ${{ matrix.TEST_TARGET == 'alerts_page_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'alerts_page_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
-          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="alerts_page_test"
@@ -141,7 +142,6 @@ jobs:
       - name: practice form test
         if: ${{ matrix.TEST_TARGET == 'practice_form_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'practice_form_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
-          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="practice_form_test"
@@ -153,7 +153,6 @@ jobs:
       - name: text box test
         if: ${{ matrix.TEST_TARGET == 'text_box_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'text_box_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
-          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="text_box_test"
@@ -165,7 +164,6 @@ jobs:
       - name: run all tests
         if: ${{ matrix.TEST_TARGET == 'run_all_tests' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'run_all_tests') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
-          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="run_all_tests"
@@ -177,7 +175,6 @@ jobs:
       - name: cross browser test
         if: ${{ matrix.TEST_TARGET == 'cross_browser_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'cross_browser_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
-          REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
         run: |
           TEST_NAME="cross_browser_test"
