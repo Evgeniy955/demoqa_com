@@ -15,6 +15,7 @@ on:
           - text_box_test
           - run_all_tests
           - cross_browser_test
+          - all_matrix
       browser_type:
         description: Browser type
         required: true
@@ -64,7 +65,7 @@ jobs:
       PASSWORD: ${{ secrets.PASSWORD }}
       TO_EMAIL: ${{ secrets.TO_EMAIL }}
       LOCAL_RUN: false
-      ALLURE_RESULTS_DIR: allure-results/${{ matrix.BROWSER }}
+      ALLURE_RESULTS_DIR: allure-results/${{ matrix.BROWSER }}-${{ matrix.TEST_TARGET }}
 
     steps:
       - name: Checkout repository
@@ -76,12 +77,12 @@ jobs:
           python-version: "3.10"
 
       - name: Prepare Allure results directory
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         run: |
           mkdir -p "${{ env.ALLURE_RESULTS_DIR }}"
 
       - name: Validate browser type
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         run: |
           if [[ "${{ github.event.inputs.browser_type }}" == '' ]]; then
           echo "All browsers have been selected"
@@ -91,7 +92,7 @@ jobs:
           fi
 
       - name: Install browser
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         run: |
           if [[ "${{ matrix.BROWSER }}" == "chrome" ]]; then
             sudo apt-get install -y google-chrome-stable
@@ -103,17 +104,17 @@ jobs:
           fi
 
       - name: install dependencies
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Download all workflow run artifacts
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
         uses: actions/download-artifact@v4
 
       - name: check box test
-        if: ${{ matrix.TEST_TARGET == 'check_box_test' && (github.event_name != 'workflow_dispatch' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'check_box_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
+        if: ${{ matrix.TEST_TARGET == 'check_box_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'check_box_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
@@ -125,7 +126,7 @@ jobs:
         continue-on-error: true
 
       - name: alerts page test
-        if: ${{ matrix.TEST_TARGET == 'alerts_page_test' && (github.event_name != 'workflow_dispatch' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'alerts_page_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
+        if: ${{ matrix.TEST_TARGET == 'alerts_page_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'alerts_page_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
@@ -138,7 +139,7 @@ jobs:
         continue-on-error: true
 
       - name: practice form test
-        if: ${{ matrix.TEST_TARGET == 'practice_form_test' && (github.event_name != 'workflow_dispatch' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'practice_form_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
+        if: ${{ matrix.TEST_TARGET == 'practice_form_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'practice_form_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
@@ -150,7 +151,7 @@ jobs:
         continue-on-error: true
 
       - name: text box test
-        if: ${{ matrix.TEST_TARGET == 'text_box_test' && (github.event_name != 'workflow_dispatch' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'text_box_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
+        if: ${{ matrix.TEST_TARGET == 'text_box_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'text_box_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
@@ -162,7 +163,7 @@ jobs:
         continue-on-error: true
 
       - name: run all tests
-        if: ${{ matrix.TEST_TARGET == 'run_all_tests' && (github.event_name != 'workflow_dispatch' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'run_all_tests') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
+        if: ${{ matrix.TEST_TARGET == 'run_all_tests' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'run_all_tests') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
@@ -174,7 +175,7 @@ jobs:
         continue-on-error: true
 
       - name: cross browser test
-        if: ${{ matrix.TEST_TARGET == 'cross_browser_test' && (github.event_name != 'workflow_dispatch' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'cross_browser_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
+        if: ${{ matrix.TEST_TARGET == 'cross_browser_test' && (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == 'cross_browser_test') && (github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER))) }}
         env:
           REMOTE_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ matrix.BROWSER }}
@@ -186,12 +187,12 @@ jobs:
         continue-on-error: true
 
       - name: Check Allure Results Directory
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
-        run: ls -la allure-results
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        run: ls -la "${{ env.ALLURE_RESULTS_DIR }}"
         continue-on-error: true
 
       - name: Store allure results
-        if: ${{ github.event_name != 'workflow_dispatch' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET)) }}
+        if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.deployment_target == 'all_matrix' || ((github.event.inputs.browser_type == '' || github.event.inputs.browser_type == matrix.BROWSER) && (github.event.inputs.deployment_target == '' || github.event.inputs.deployment_target == matrix.TEST_TARGET))) && hashFiles(format('{0}/*', env.ALLURE_RESULTS_DIR)) != '' }}
         uses: actions/upload-artifact@v4
         with:
           # make artifact name unique per workflow run using run_id

@@ -26,7 +26,7 @@ if get_os_type() == "Windows":
 else:
     # block for macOS, Ubuntu
     BROWSER = get('BROWSER', 'chrome')  # browser name ["chrome", "edge", "firefox", safari (local only)]
-    CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', False)
+    CREATE_ALLURE_REPORT = get('CREATE_ALLURE_REPORT', True)
     SEND_REPORT = get('SEND_REPORT', False)
 
 
